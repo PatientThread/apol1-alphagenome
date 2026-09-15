@@ -1,0 +1,8 @@
+rsid,pos,af_afr,max_r2_vs_gene,n_cell_types_open,open_in_cell_types
+rs136204,36358116,0.4012,0.0944,6,podocyte; proximal tubule; kidney epithelial; renal cortical epithelial; kidney tubule; whole kidney
+rs183925240,36358117,0.0261,0.1147,6,podocyte; proximal tubule; kidney epithelial; renal cortical epithelial; kidney tubule; whole kidney
+rs6000250,36350756,0.1109,0.1735,5,podocyte; proximal tubule; kidney epithelial; renal cortical epithelial; kidney tubule
+rs132708,36197151,0.8385,0.1245,1,whole kidney
+rs4820232,36314496,0.3009,0.1798,0,none
+rs713797,36368489,0.3963,0.1197,0,none
+rs5750234,36184831,0.7593,0.1118,0,none

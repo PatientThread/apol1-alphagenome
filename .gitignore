@@ -21,3 +21,6 @@ venv/
 # Tabix index that pysam caches in the working directory when script 07 streams
 # the remote 1000 Genomes VCF. Not project data.
 *.vcf.gz.tbi
+
+# Cell-type peak files, regenerable by analysis/09 from stable ENCODE accessions
+data/encode_celltype_peaks/*.bed.gz

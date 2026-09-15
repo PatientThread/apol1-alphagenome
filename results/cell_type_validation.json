@@ -1,0 +1,39 @@
+{
+  "scored_variants": 1921,
+  "cell_types": {
+    "podocyte": {
+      "files": 4,
+      "peaks": 94,
+      "bp": 34042
+    },
+    "proximal tubule": {
+      "files": 4,
+      "peaks": 51,
+      "bp": 14686
+    },
+    "kidney epithelial": {
+      "files": 4,
+      "peaks": 59,
+      "bp": 16531
+    },
+    "renal cortical epithelial": {
+      "files": 4,
+      "peaks": 115,
+      "bp": 31984
+    },
+    "kidney tubule": {
+      "files": 4,
+      "peaks": 57,
+      "bp": 19109
+    },
+    "whole kidney": {
+      "files": 4,
+      "peaks": 63,
+      "bp": 22116
+    }
+  },
+  "ranking_channel": "dnase_glomerular_visceral_epithelial_cell",
+  "background": "other common variants at the same locus",
+  "podocyte_leads_at_n_thresholds": 1,
+  "n_thresholds": 4
+}

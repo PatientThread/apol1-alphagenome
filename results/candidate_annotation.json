@@ -1,0 +1,65 @@
+{
+  "candidates": 15,
+  "independent": 7,
+  "encode_files": {
+    "ENCFF146AYH": {
+      "accession": "ENCFF146AYH",
+      "assay": "DNase-seq",
+      "biosample": "kidney",
+      "classification": "tissue",
+      "assembly": "GRCh38"
+    },
+    "ENCFF214HJG": {
+      "accession": "ENCFF214HJG",
+      "assay": "DNase-seq",
+      "biosample": "kidney",
+      "classification": "tissue",
+      "assembly": "GRCh38"
+    },
+    "ENCFF350FBW": {
+      "accession": "ENCFF350FBW",
+      "assay": "DNase-seq",
+      "biosample": "kidney",
+      "classification": "tissue",
+      "assembly": "GRCh38"
+    },
+    "ENCFF473YKR": {
+      "accession": "ENCFF473YKR",
+      "assay": "DNase-seq",
+      "biosample": "kidney",
+      "classification": "tissue",
+      "assembly": "GRCh38"
+    },
+    "ENCFF554CKH": {
+      "accession": "ENCFF554CKH",
+      "assay": "DNase-seq",
+      "biosample": "kidney",
+      "classification": "tissue",
+      "assembly": "GRCh38"
+    },
+    "ENCFF851SWR": {
+      "accession": "ENCFF851SWR",
+      "assay": "DNase-seq",
+      "biosample": "kidney",
+      "classification": "tissue",
+      "assembly": "GRCh38"
+    },
+    "ENCFF922WKR": {
+      "accession": "ENCFF922WKR",
+      "assay": "DNase-seq",
+      "biosample": "kidney",
+      "classification": "tissue",
+      "assembly": "GRCh38"
+    },
+    "ENCFF948WNJ": {
+      "accession": "ENCFF948WNJ",
+      "assay": "DNase-seq",
+      "biosample": "kidney",
+      "classification": "tissue",
+      "assembly": "GRCh38"
+    }
+  },
+  "independent_in_annotated_element": 3,
+  "independent_open_in_any_kidney_sample": 3,
+  "caveat": "Annotated regulatory elements are predictions from chromatin marks across many cell types, not functional evidence that the element regulates APOL1 or that the variant alters it."
+}

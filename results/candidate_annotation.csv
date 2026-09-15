@@ -1,0 +1,16 @@
+rsid,pos,af_afr,max_r2_vs_gene,independent,n_kidney_samples_open,open_in,regulatory_features,nearest_protein_coding_gene,distance_to_nearest_gene
+rs114518164,36180470,0.0944,0.2482,False,8,kidney (DNase-seq); kidney (DNase-seq); kidney (DNase-seq); kidney (DNase-seq); kidney (DNase-seq); kidney (DNase-seq); kidney (DNase-seq); kidney (DNase-seq),CTCF_binding_site; enhancer,APOL4,8654
+rs6000250,36350756,0.1109,0.1735,True,0,none,none annotated,MYH9,0
+rs4820232,36314496,0.3009,0.1798,True,0,none,none annotated,MYH9,0
+rs713797,36368489,0.3963,0.1197,True,0,none,none annotated,MYH9,0
+rs150645785,36362520,0.0103,0.3643,False,0,none,none annotated,MYH9,0
+rs148651564,36350939,0.0109,1.0,False,0,none,none annotated,MYH9,0
+rs136204,36358116,0.4012,0.0944,True,2,kidney (DNase-seq); kidney (DNase-seq),enhancer,MYH9,0
+rs132708,36197151,0.8385,0.1245,True,2,kidney (DNase-seq); kidney (DNase-seq),none annotated,APOL4,0
+rs183925240,36358117,0.0261,0.1147,True,2,kidney (DNase-seq); kidney (DNase-seq),enhancer,MYH9,0
+rs5750234,36184831,0.7593,0.1118,True,0,none,enhancer,APOL4,4293
+rs78440576,36220715,0.029,0.4975,False,0,none,enhancer,APOL2,0
+rs132695,36184917,0.8718,0.29,False,0,none,enhancer,APOL4,4207
+rs132754,36220845,0.7916,0.2214,False,0,none,enhancer,APOL2,0
+rs77773194,36311889,0.0316,0.3672,False,0,none,enhancer,MYH9,0
+rs8138011,36337378,0.0236,0.6611,False,0,none,none annotated,MYH9,0
