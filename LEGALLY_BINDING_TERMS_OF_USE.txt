@@ -1,0 +1,113 @@
+LEGALLY BINDING TERMS OF USE
+================================================================================
+
+By using this information, you agree to AlphaGenome Output Terms of Use found at
+http://deepmind.google.com/science/alphagenome/output-terms
+
+
+WHAT THIS FILE COVERS
+--------------------------------------------------------------------------------
+
+Parts of this repository are AlphaGenome Output or Output Derivatives, as those
+terms are defined by Google DeepMind. They are NOT covered by the MIT licence in
+LICENSE, which applies to the analysis code only. The files governed by the
+AlphaGenome Output Terms of Use are:
+
+  results/scored/**                       per-variant model predictions
+  results/analysis.json                   derived from those predictions
+  results/distance_controlled.json        derived from those predictions
+  results/encode_validation.json          derived from those predictions
+  results/top_variants.csv                derived from those predictions
+  results/top_variants_corrected.csv      derived from those predictions
+  results/apol1_scoring_log.csv           accounting for the scoring run
+
+The following file is redistributed from google-deepmind/alphagenome_research
+under the Creative Commons Attribution-NonCommercial 4.0 International Licence
+(CC BY-NC 4.0), per that repository's README, which places all materials other
+than software and documentation under that licence:
+
+  (this repository redistributes no AlphaGenome track manifest)
+
+In every case the restriction is NON-COMMERCIAL. Nothing in the MIT licence in
+this repository grants you any right to use these files commercially, and the
+MIT licence must not be read as doing so.
+
+
+USE RESTRICTIONS
+--------------------------------------------------------------------------------
+
+Reproduced verbatim from the AlphaGenome Output Terms of Use (effective 25 June
+2025), as that document requires, as an enforceable provision of this
+distribution:
+
+  "The AlphaGenome API belongs to us. We make Output available free of charge,
+  for non-commercial use only, in accordance with the following use
+  restrictions. You must not use nor allow others to use Output or Derivatives:
+
+  On behalf of a commercial organization or in connection with any commercial
+  activities, including research on behalf of commercial organizations or
+  sharing or using Output or Derivatives in a manner that will grant a
+  commercial organization any rights in Output or Derivatives, in each case
+  aside from indirectly via a scientific publication, open source release or to
+  support journalism.
+
+  To train machine learning models or related technology, except that you may
+  use Output and Output Derivatives to train models that function in a similar
+  manner to AlphaGenome provided the model weights and parameters for those
+  models are used in accordance with and governed by the AlphaGenome Model
+  Parameters Terms of Use.
+
+  Without providing conspicuous notice that any Output or Derivatives you
+  publish or distribute are provided under and subject to these Terms and of any
+  modifications you make to Output.
+
+  To misinform, misrepresent or mislead, including: misrepresenting your
+  relationship with us; misrepresenting the origin of Output or Derivatives;
+  distributing misleading claims of expertise or capability made particularly in
+  sensitive areas (e.g., health); or making decisions in domains that affect
+  material or individual rights or well-being (e.g., healthcare).
+
+  To perform or facilitate dangerous, illegal or malicious activities, including
+  promoting or facilitating the sale of, or providing instructions for
+  synthesizing or accessing, illegal substances, goods or services."
+
+If you redistribute any of the files listed above, or anything substantially
+derived from them, you must carry this notice and this "Use restrictions"
+section forward, and give clear notice to your own users that the material
+remains subject to these restrictions.
+
+
+MODIFICATIONS MADE TO OUTPUT
+--------------------------------------------------------------------------------
+
+The Terms require notice of modifications. The predictions redistributed here
+are not raw API responses. They were transformed as follows, and the code that
+did so is in analysis/ :
+
+  - Variants at the APOL1 locus were scored with the gene-masked expression
+    scorer and with position-local accessibility scorers, and only the value for
+    the APOL1 target gene was retained (analysis/02).
+  - Those values were ranked, stratified and residualised on distance to the
+    gene, and cross-tabulated against ENCODE peak calls and 1000 Genomes
+    linkage disequilibrium (analysis/03 to analysis/07).
+  - No model weights or parameters are redistributed, and none were accessed.
+
+Raw per-variant predictions as returned for the scored gene are retained in
+results/ so that the transformations above can be checked.
+
+
+ATTRIBUTION
+--------------------------------------------------------------------------------
+
+AlphaGenome:
+  Avsec Z, Latysheva N, Cheng J, et al. Advancing regulatory variant effect
+  prediction with AlphaGenome. Nature 2026; 649: 1206-1218.
+  doi:10.1038/s41586-025-10014-0
+
+ENCODE (the measured kidney accessibility peaks):
+  ENCODE Project Consortium. Expanded encyclopaedias of DNA elements in the
+  human and mouse genomes. Nature 2020; 583: 699-710.
+
+1000 Genomes (the phased haplotypes used for linkage disequilibrium):
+  1000 Genomes Project Consortium. A global reference for human genetic
+  variation. Nature 2015; 526: 68-74.

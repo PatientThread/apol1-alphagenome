@@ -1,0 +1,23 @@
+# SECRETS. The API key lives at ~/.alphagenome/api_key (mode 600), OUTSIDE this
+# repository, and is read by analysis/ag_auth.py. Never commit key material,
+# masked or otherwise: a masked key leaked into committed artefacts once on the
+# sister project and had to be scrubbed.
+*api_key*
+.env
+*.pem
+
+# Logs. These have carried masked key fragments in the past.
+*.log
+
+# Regenerable by analysis/01_fetch_locus_variants.py, 69 MB of raw gnomAD API
+# response. The frozen, derived variant set IS committed.
+data/gnomad_region_raw.json
+
+__pycache__/
+*.pyc
+venv/
+.DS_Store
+
+# Tabix index that pysam caches in the working directory when script 07 streams
+# the remote 1000 Genomes VCF. Not project data.
+*.vcf.gz.tbi

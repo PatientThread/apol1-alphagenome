@@ -1,0 +1,48 @@
+{
+  "region": "chr22:36140330-36388018",
+  "region_bp": 247688,
+  "model_window": {
+    "centre": 36260000,
+    "width": 1048576,
+    "covers_cluster": true
+  },
+  "variants_total": 107737,
+  "variants_in_apol1_gene": 9033,
+  "coding": 8862,
+  "non_coding": 98875,
+  "non_coding_pct": 91.8,
+  "common_in_afr_1pct": 2429,
+  "common_in_afr_5pct": 1600,
+  "risk_variants_found": [
+    {
+      "rsid": "rs2239785",
+      "is_risk_variant": "N264K (protective modifier)",
+      "pos": 36265284,
+      "af_afr": 0.0
+    },
+    {
+      "rsid": "rs2239785",
+      "is_risk_variant": "N264K (protective modifier)",
+      "pos": 36265284,
+      "af_afr": 0.3604218961189419
+    },
+    {
+      "rsid": "rs73885319",
+      "is_risk_variant": "G1 (p.S342G)",
+      "pos": 36265860,
+      "af_afr": 0.22211770381090207
+    },
+    {
+      "rsid": "rs60910145",
+      "is_risk_variant": "G1 (p.I384M)",
+      "pos": 36265988,
+      "af_afr": 0.22359250654935495
+    },
+    {
+      "rsid": "rs71785313",
+      "is_risk_variant": "G2 (6bp del, p.N388_Y389del)",
+      "pos": 36265995,
+      "af_afr": 0.13547438924492844
+    }
+  ]
+}

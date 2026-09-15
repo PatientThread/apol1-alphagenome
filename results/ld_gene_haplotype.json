@@ -1,0 +1,24 @@
+{
+  "candidates": 15,
+  "tested": 15,
+  "gene_body": "chr22:36253071-36267530",
+  "gene_variants_considered": 168,
+  "min_maf": 0.01,
+  "populations": [
+    "YRI",
+    "LWK",
+    "ESN",
+    "MSL",
+    "GWD",
+    "ACB",
+    "ASW"
+  ],
+  "populations_pooled": false,
+  "phased": true,
+  "source": "1000 Genomes phase 3, GRCh38 lift",
+  "g2_note": "G2 (rs71785313, 6bp deletion) is absent from this call set, which is why LD is assessed against all gene-body variation rather than against G2 directly",
+  "n_tags_gene_r2_ge_0.8": 1,
+  "n_partial": 7,
+  "n_independent": 7,
+  "max_r2_observed": 1.0
+}
