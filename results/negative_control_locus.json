@@ -1,10 +1,43 @@
 {
   "locus": "chr11:5150000-5397688",
   "bp": 247688,
-  "scored": 1,
+  "scored": 1918,
   "peaks": 10,
   "peak_bp": 2598,
-  "enrichment": [],
+  "enrichment": [
+    {
+      "top_n": 25,
+      "in_peak": 0,
+      "pct": 0.0,
+      "background_pct": 0.7,
+      "odds_ratio": 0.0,
+      "p": 1.0
+    },
+    {
+      "top_n": 50,
+      "in_peak": 0,
+      "pct": 0.0,
+      "background_pct": 0.7,
+      "odds_ratio": 0.0,
+      "p": 1.0
+    },
+    {
+      "top_n": 100,
+      "in_peak": 1,
+      "pct": 1.0,
+      "background_pct": 0.7,
+      "odds_ratio": 1.402,
+      "p": 0.5287026798906352
+    },
+    {
+      "top_n": 200,
+      "in_peak": 2,
+      "pct": 1.0,
+      "background_pct": 0.7,
+      "odds_ratio": 1.436,
+      "p": 0.43765416471640134
+    }
+  ],
   "apol1_comparison": {
     "top25": 4.877,
     "top50": 4.186,
