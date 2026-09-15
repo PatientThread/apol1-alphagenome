@@ -55,7 +55,7 @@ OUT = RESULTS / "scored"
 OUT.mkdir(parents=True, exist_ok=True)
 
 sys.path.insert(0, str(HERE))
-from ag_auth import get_key, masked  # noqa: E402
+from ag_auth import get_key  # noqa: E402
 
 CHROM = "chr22"
 SEQ_1MB = 1_048_576          # exact; 1_000_000 is rejected by the model
@@ -106,7 +106,10 @@ def main() -> None:
         v = v.head(args.limit)
     print(f"variants to score: {len(v):,} (AFR AF >= {args.min_af})")
 
-    print(f"authenticating with {masked()}")
+    # Never log the key, not even masked. masked() reveals 10 of 39
+    # characters and that fragment reached a committed artefact once on
+    # the sister project. Confirm authentication, print nothing about it.
+    print("authenticating (key not logged)")
     client = dna_client.create(get_key())
     om = client.output_metadata(organism=dna_client.Organism.HOMO_SAPIENS)
     targets = build_targets(om)

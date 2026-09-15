@@ -60,15 +60,6 @@ def get_key() -> str:
     )
 
 
-def masked() -> str:
-    """Safe-to-log representation. Use this in any print or log line."""
-    try:
-        k = get_key()
-    except MissingKey:
-        return "<no key>"
-    return f"{k[:6]}...{k[-4:]} ({len(k)} chars)"
-
-
 def make_client():
     """Construct an AlphaGenome client, with a clear error if the package is absent."""
     try:
@@ -83,5 +74,5 @@ def make_client():
 
 
 if __name__ == "__main__":
-    print("key:", masked())
+    print("key loaded OK, contents not shown")
     print("source:", "env" if os.environ.get(ENV_VAR) else str(KEY_PATH))

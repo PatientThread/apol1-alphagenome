@@ -1,0 +1,14 @@
+{
+  "locus": "chr11:5150000-5397688",
+  "bp": 247688,
+  "scored": 1,
+  "peaks": 10,
+  "peak_bp": 2598,
+  "enrichment": [],
+  "apol1_comparison": {
+    "top25": 4.877,
+    "top50": 4.186,
+    "top100": 5.224,
+    "top200": 6.125
+  }
+}

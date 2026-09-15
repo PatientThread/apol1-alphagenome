@@ -1,0 +1,20 @@
+{
+  "variants": 6,
+  "written": 6,
+  "failures": 0,
+  "seconds": 6.2,
+  "kidney_biosamples": [
+    "glomerular visceral epithelial cell",
+    "kidney"
+  ],
+  "wrong_biosamples": [
+    "brain",
+    "frontal cortex",
+    "heart left ventricle",
+    "hepatocyte",
+    "left lung",
+    "liver",
+    "lung",
+    "stomach"
+  ]
+}

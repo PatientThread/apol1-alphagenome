@@ -24,3 +24,5 @@ venv/
 
 # Cell-type peak files, regenerable by analysis/09 from stable ENCODE accessions
 data/encode_celltype_peaks/*.bed.gz
+data/control_locus_peaks/*.bed.gz
+data/control_locus_variants.tsv.gz
