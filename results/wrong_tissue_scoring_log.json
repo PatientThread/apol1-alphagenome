@@ -1,8 +1,8 @@
 {
-  "variants": 6,
-  "written": 6,
+  "variants": 1930,
+  "written": 1930,
   "failures": 0,
-  "seconds": 6.2,
+  "seconds": 1871.8,
   "kidney_biosamples": [
     "glomerular visceral epithelial cell",
     "kidney"

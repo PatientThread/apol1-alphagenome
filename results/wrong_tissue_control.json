@@ -1,0 +1,38 @@
+{
+  "variants": 1921,
+  "peaks": 67,
+  "kidney_columns": [
+    "glomerular_visceral_epithelial_cell",
+    "kidney"
+  ],
+  "wrong_columns": [
+    "brain",
+    "frontal_cortex",
+    "heart_left_ventricle",
+    "hepatocyte",
+    "left_lung",
+    "liver",
+    "lung",
+    "stomach"
+  ],
+  "kidney_leads_at_n_thresholds": 1,
+  "n_thresholds": 4,
+  "best_kidney_or": {
+    "25": 4.879,
+    "50": 4.188,
+    "100": 5.229,
+    "200": 6.139
+  },
+  "best_wrong_or": {
+    "25": 4.879,
+    "50": 5.066,
+    "100": 6.691,
+    "200": 5.437
+  },
+  "median_wrong_or": {
+    "25": 4.059,
+    "50": 3.6064999999999996,
+    "100": 4.368,
+    "200": 4.041
+  }
+}
