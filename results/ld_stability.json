@@ -1,0 +1,39 @@
+{
+  "bootstrap_replicates": 2000,
+  "cutoff": 0.2,
+  "resampling": "haplotypes with replacement, within population",
+  "n_candidates": 15,
+  "median_width_rare_af_lt_0.05": 0.91465,
+  "median_width_common_af_ge_0.05": 0.2723,
+  "n_verdicts_unstable": 14,
+  "unstable_rsids": [
+    "rs150645785",
+    "rs148651564",
+    "rs8138011",
+    "rs183925240",
+    "rs78440576",
+    "rs77773194",
+    "rs114518164",
+    "rs6000250",
+    "rs4820232",
+    "rs713797",
+    "rs5750234",
+    "rs132754",
+    "rs132708",
+    "rs132695"
+  ],
+  "robust_independent": [
+    "rs136204"
+  ],
+  "n_not_proxy_upper_below_0.8": 11,
+  "rare_untestable_rsids": [
+    "rs150645785",
+    "rs148651564",
+    "rs8138011",
+    "rs183925240",
+    "rs78440576",
+    "rs77773194"
+  ],
+  "median_width_rare": 0.91465,
+  "median_width_common": 0.2723
+}

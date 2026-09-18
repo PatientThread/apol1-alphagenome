@@ -1,0 +1,16 @@
+rsid,af_afr,minor_allele_copies,point_r2,partner_pos,population,boot_lo,boot_hi,width,step7_verdict,verdict_stable
+rs150645785,0.0103,12,0.3643,36266712,YRI,0.0,0.8293,0.8293,partially correlated,False
+rs148651564,0.0109,13,1.0,36260200,YRI,0.0,1.0,1.0,tags the gene haplotype,False
+rs8138011,0.0236,33,0.6611,36258968,ASW,0.0,1.0,1.0,partially correlated,False
+rs183925240,0.0261,43,0.1147,36257229,ASW,0.0,0.6611,0.6611,independent,False
+rs78440576,0.029,16,0.4975,36259013,ESN,0.0,1.0,1.0,partially correlated,False
+rs77773194,0.0316,35,0.3672,36265628,GWD,0.033,0.7964,0.7634,partially correlated,False
+rs114518164,0.0944,131,0.2482,36265628,ACB,0.0254,0.5528,0.5274,partially correlated,False
+rs6000250,0.1109,198,0.1735,36259617,YRI,0.0244,0.4219,0.3976,independent,False
+rs4820232,0.3009,318,0.1798,36259467,ESN,0.0732,0.3243,0.2511,independent,False
+rs713797,0.3963,560,0.1197,36267489,LWK,0.0478,0.2107,0.1629,independent,False
+rs136204,0.4012,443,0.0944,36266702,LWK,0.032,0.1749,0.1429,independent,True
+rs5750234,0.7593,1094,0.1118,36255267,MSL,0.0183,0.2609,0.2426,independent,False
+rs132754,0.7916,1063,0.2214,36260179,MSL,0.0951,0.3726,0.2774,partially correlated,False
+rs132708,0.8385,1118,0.1245,36261386,ASW,0.0187,0.291,0.2723,independent,False
+rs132695,0.8718,1205,0.29,36260831,YRI,0.0,0.616,0.616,partially correlated,False
