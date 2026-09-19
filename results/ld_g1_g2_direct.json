@@ -1,0 +1,18 @@
+{
+  "source": "1000 Genomes phase 3 original release, GRCh37",
+  "why_not_grch38_file": "the biallelic GRCh38 lift used in step 7 omits the G2 deletion; the original release retains it at chr22:36,662,041 AATAATT>A with no rsID",
+  "populations": [
+    "YRI",
+    "LWK",
+    "ESN",
+    "MSL",
+    "GWD",
+    "ACB",
+    "ASW"
+  ],
+  "populations_pooled": false,
+  "comparisons": 45,
+  "max_r2": 0.1767,
+  "max_frac_of_attainable": 1.0,
+  "n_high_dprime_low_r2": 22
+}

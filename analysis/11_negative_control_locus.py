@@ -279,13 +279,40 @@ def analyse(peaks: list[tuple[int, int]]) -> dict:
         if (c + e2) == 0 or n >= len(hit):
             continue
         orr, p = stats.fisher_exact([[a, b], [c, e2]], alternative="greater")
-        rows.append({"top_n": n, "in_peak": a, "pct": round(100 * a / n, 1),
+        # An INTERVAL is mandatory here. A non-significant result cannot exclude
+        # an effect unless its uncertainty says so, and an earlier version of
+        # this script claimed exclusion on the strength of a p-value computed
+        # for a hypothetical larger table. That is not a power calculation and
+        # the claim was false: the interval reaches well above the test-locus
+        # estimate at every depth.
+        ct = stats.contingency.odds_ratio([[a, b], [c, e2]], kind="conditional")
+        lo, hi = ct.confidence_interval(confidence_level=0.95)
+        rows.append({"top_n": n, "in_peak": a, "not_in_peak": b,
+                     "bg_in_peak": c, "bg_not_in_peak": e2,
+                     "pct": round(100 * a / n, 1),
                      "background_pct": round(100 * c / (c + e2), 1),
-                     "odds_ratio": round(float(orr), 3), "p": float(p)})
-        print(f"    top {n:<4} {a}/{n} in peak ({100*a/n:.1f}%)  "
-              f"background {100*c/(c+e2):.1f}%  OR {orr:.2f}  p={p:.2g}")
+                     "odds_ratio": round(float(orr), 3),
+                     "or_conditional": float(ct.statistic),
+                     "ci_low": float(lo), "ci_high": float(hi),
+                     "p_one_sided": float(p)})
+        hi_s = "inf" if np.isinf(hi) else f"{hi:.2f}"
+        print(f"    top {n:<4} {a}/{n} in peak  background {100*c/(c+e2):.1f}%  "
+              f"OR {orr:.2f}  95% CI [{lo:.2f}, {hi_s}]  p={p:.2g}")
+    # Does the interval actually exclude the test-locus effect? State it, do not
+    # assert it.
+    TEST_LOCUS_OR = 6.125          # podocyte DNase, top 200, at APOL1-MYH9
+    excl = [r["top_n"] for r in rows
+            if not np.isinf(r["ci_high"]) and r["ci_high"] < TEST_LOCUS_OR]
+    print(f"\n  ranking depths whose interval EXCLUDES the test-locus estimate "
+          f"of {TEST_LOCUS_OR}: {excl if excl else 'none'}")
+    if not excl:
+        print("  So this control shows no significant enrichment, and does NOT")
+        print("  exclude an effect of the size seen at the test locus. Report it")
+        print("  as an absence of evidence, not as evidence of absence.")
     return {"locus": f"{CHROM}:{START}-{END}", "bp": END - START,
             "scored": int(len(d)), "peaks": len(peaks), "peak_bp": bp,
+            "test_locus_or_compared": TEST_LOCUS_OR,
+            "depths_excluding_test_locus_effect": excl,
             "enrichment": rows}
 
 

@@ -4,38 +4,64 @@
   "scored": 1918,
   "peaks": 10,
   "peak_bp": 2598,
+  "test_locus_or_compared": 6.125,
+  "depths_excluding_test_locus_effect": [],
   "enrichment": [
     {
       "top_n": 25,
       "in_peak": 0,
+      "not_in_peak": 25,
+      "bg_in_peak": 14,
+      "bg_not_in_peak": 1879,
       "pct": 0.0,
       "background_pct": 0.7,
       "odds_ratio": 0.0,
-      "p": 1.0
+      "or_conditional": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 24.127797575435423,
+      "p_one_sided": 1.0
     },
     {
       "top_n": 50,
       "in_peak": 0,
+      "not_in_peak": 50,
+      "bg_in_peak": 14,
+      "bg_not_in_peak": 1854,
       "pct": 0.0,
       "background_pct": 0.7,
       "odds_ratio": 0.0,
-      "p": 1.0
+      "or_conditional": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 11.539183000600119,
+      "p_one_sided": 1.0
     },
     {
       "top_n": 100,
       "in_peak": 1,
+      "not_in_peak": 99,
+      "bg_in_peak": 13,
+      "bg_not_in_peak": 1805,
       "pct": 1.0,
       "background_pct": 0.7,
       "odds_ratio": 1.402,
-      "p": 0.5287026798906352
+      "or_conditional": 1.4021988579162221,
+      "ci_low": 0.03267546863020087,
+      "ci_high": 9.514464099577971,
+      "p_one_sided": 0.5287026798906352
     },
     {
       "top_n": 200,
       "in_peak": 2,
+      "not_in_peak": 198,
+      "bg_in_peak": 12,
+      "bg_not_in_peak": 1706,
       "pct": 1.0,
       "background_pct": 0.7,
       "odds_ratio": 1.436,
-      "p": 0.43765416471640134
+      "or_conditional": 1.435715363126567,
+      "ci_low": 0.15497987133603258,
+      "ci_high": 6.519576634541336,
+      "p_one_sided": 0.43765416471640134
     }
   ],
   "apol1_comparison": {

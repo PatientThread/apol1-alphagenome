@@ -1,0 +1,46 @@
+[
+  {
+    "top_n": 25,
+    "a": 0,
+    "b": 25,
+    "c": 14,
+    "d": 1879,
+    "odds_ratio_conditional": 0.0,
+    "p_one_sided": 1.0,
+    "ci_lo": 0.0,
+    "ci_hi": 24.128
+  },
+  {
+    "top_n": 50,
+    "a": 0,
+    "b": 50,
+    "c": 14,
+    "d": 1854,
+    "odds_ratio_conditional": 0.0,
+    "p_one_sided": 1.0,
+    "ci_lo": 0.0,
+    "ci_hi": 11.539
+  },
+  {
+    "top_n": 100,
+    "a": 1,
+    "b": 99,
+    "c": 13,
+    "d": 1805,
+    "odds_ratio_conditional": 1.402,
+    "p_one_sided": 0.5287026798906352,
+    "ci_lo": 0.033,
+    "ci_hi": 9.514
+  },
+  {
+    "top_n": 200,
+    "a": 2,
+    "b": 198,
+    "c": 12,
+    "d": 1706,
+    "odds_ratio_conditional": 1.436,
+    "p_one_sided": 0.43765416471640134,
+    "ci_lo": 0.155,
+    "ci_hi": 6.52
+  }
+]
