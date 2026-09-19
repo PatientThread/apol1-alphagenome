@@ -8,16 +8,27 @@ WHY THIS SCRIPT EXISTS. Script 03 found that the gene-masked expression scorer
 assigns systematically larger predicted effects to variants inside the target
 gene body:
 
-    coding                        n=  65   median |LFC| 0.00109
-    non-coding, inside the gene   n= 121   median |LFC| 0.00199
-    non-coding, outside the gene  n=1744   median |LFC| 0.00077
+    inside the APOL1 gene body    n= 134   median |LFC| 0.00224
+    outside it                    n=1796   median |LFC| 0.00077
 
-Note the ordering. Non-coding variants INSIDE the gene score higher than coding
-ones, so this is not coding constraint leaking into a regulatory prediction. It
-is position. That is reasonable behaviour for a scorer that masks on a gene, but
-it means a raw ranking by predicted expression effect largely rediscovers
-proximity to APOL1, and the apparent result that 90% of top-ranked non-coding
-variants lie inside the gene body (against 6% expected by chance) is an artefact.
+CORRECTED 19 Sep 2026. An earlier version of this docstring compared non-coding
+variants inside the gene (n=121, 0.00199) against ALL coding variants at the
+locus (n=65, 0.00109) and concluded that coding constraint was not leaking into
+the prediction. That comparison is not distance-matched: most of those 65 coding
+variants sit in other genes, far from APOL1, so their low scores reflect
+distance rather than coding status. Compared WITHIN the gene body, the ordering
+reverses:
+
+    coding, inside the gene       n=  13   median |LFC| 0.00618
+    non-coding, inside the gene   n= 121   median |LFC| 0.00199
+
+So coding variants score HIGHER, and coding constraint may well be leaking into a
+channel that is meant to be regulatory, on top of the proximity effect. The
+n=13 makes that suggestive rather than settled, but it must not be reported the
+other way round. Either way a raw ranking by predicted expression effect largely
+rediscovers proximity to APOL1, and the apparent result that 90% of top-ranked
+non-coding variants lie inside the gene body (against 6% expected) is an
+artefact.
 
 THREE CORRECTIONS APPLIED HERE.
 

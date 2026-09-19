@@ -192,10 +192,13 @@ below). Thirteen numbered scripts reproduce every reported number.
 
 ### 3.1 The expression channel is confounded and was discarded
 
-Non-coding variants inside the gene body scored higher than coding ones (median
-absolute effect 0.0022, n = 134, versus 0.00077, n = 1,796), so the ordering
-reflects position rather than constraint. Distance explained 5.7% of the variance
-in log absolute effect. After residualising, the coding risk variants remained at
+Predicted effect fell steeply with distance from the gene: variants inside the
+APOL1 gene body scored roughly three times higher than those outside it (median
+absolute effect 0.0022, n = 134, versus 0.00077, n = 1,796), and distance alone
+explained 5.7% of the variance in log absolute effect. Within the gene body the
+13 coding variants scored higher still (0.0062 against 0.0020), so coding
+constraint may also be leaking into a channel intended to be regulatory, although
+that comparison rests on few variants. After residualising, the coding risk variants remained at
 the 97.6th and 96.9th percentile. The pre-specified control therefore failed, and
 this channel is reported as unusable rather than omitted.
 
@@ -412,21 +415,33 @@ were accessed and no participants were recruited.
 
 ## Figure legends
 
-**Figure 1.** Predicted effect against distance to APOL1 for the gene-masked
-expression scorer, with the coding risk variants marked. Their position after
-residualising on distance is shown inset. The pre-specified negative control
-failed, and this channel was discarded.
+**Figure 1.** Why the expression channel was discarded. (A) Predicted absolute
+effect on APOL1 expression for variants grouped by position, with the group
+median marked. The ordering follows position, and within the gene body the 13
+coding variants score highest, so coding constraint may also be contributing.
+(B) Distribution of the residual after regressing log effect on log distance,
+with the three coding risk variants marked. They remain in the upper tail after
+the correction intended to remove the positional effect, so the pre-specified
+negative control failed.
 
-**Figure 2.** Enrichment of top-ranked variants in measured kidney chromatin at
-the test locus, by ranking depth, for the accessibility channel. Background is
-the other common variants at the same locus.
+**Figure 2.** Enrichment of top-ranked variants in measured ENCODE kidney open
+chromatin, by ranking depth, for the two accessibility channels. The background
+is the other common variants at the same locus, so an odds ratio of 1 means no
+enrichment relative to the locus itself.
 
-**Figure 3.** The tissue-label control. Odds ratio for enrichment in measured
-kidney chromatin, by the tissue output used to rank, at four thresholds. Only the
-column selected from the model's output differs between series.
+**Figure 3.** The tissue-label control. Each row is the tissue output used to
+rank the same 1,930 variants; the four markers are ranking depths 25, 50, 100 and
+200, and the bar spans their range. The outcome measured is always enrichment in
+measured **kidney** chromatin, so only the column selected from the model's
+output differs between rows. Kidney rows are shown in black. Hepatocyte reaches
+further than podocyte.
 
-**Figure 4.** The control locus. Enrichment at the beta-globin cluster against
-the test locus, same pipeline and same peak source.
+**Figure 4.** The control locus. The same ranking and the same peak source
+applied at the beta-globin cluster, matched to the test locus on physical length,
+paralogue-cluster structure and variant count. Bars at zero indicate no
+top-ranked variant fell in a measured peak. Power is lower at the control locus,
+which carries less kidney chromatin, but an effect of the size seen at
+APOL1-MYH9 would have been detected.
 
 ## Tables
 
