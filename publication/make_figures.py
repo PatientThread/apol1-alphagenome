@@ -80,6 +80,86 @@ def distance_to_apol1(pos: np.ndarray) -> np.ndarray:
 
 
 # ---------------------------------------------------------------- figure 1
+def figure1() -> None:
+    """The finding: partitioning reverses the pooled result.
+
+    Three panels, one per partition, same seven rankings in the same order in
+    each. Reading across a row shows what changes when the regions are separated
+    by tissue restriction. Kidney rankings are black; identity is carried by
+    weight and marker, never by hue.
+    """
+    e = pd.read_csv(RESULTS / "specific_vs_shared.csv")
+    e = e.dropna(subset=["odds_ratio"])
+    parts = ["kidney-specific", "shared", "other-tissue-specific"]
+    titles = ["A  Kidney-specific regions", "B  Shared regions",
+              "C  Other-tissue-specific regions"]
+    order = (e[e.partition == "kidney-specific"]
+             .sort_values("odds_ratio")["ranked_by"].tolist())
+
+    fig, axes = plt.subplots(1, 3, figsize=(TWO_COL, 2.7), sharey=True)
+    for ax, part, title in zip(axes, parts, titles):
+        sub = e[e.partition == part].set_index("ranked_by")
+        for i, name in enumerate(order):
+            if name not in sub.index:
+                continue
+            r = sub.loc[name]
+            is_k = name.startswith("kidney")
+            c = ACCENT if is_k else NEUTRAL
+            hi = r.ci_high if pd.notna(r.ci_high) else 20
+            ax.plot([r.ci_low, hi], [i, i], color=c,
+                    linewidth=1.9 if is_k else 1.1,
+                    solid_capstyle="round", zorder=3)
+            ax.scatter([r.odds_ratio], [i], s=20 if is_k else 13, color=c,
+                       marker="D" if is_k else "o",
+                       edgecolor=SURFACE, linewidth=0.6, zorder=4)
+        ax.axvline(1, color=INK2, linewidth=0.7, linestyle=(0, (4, 3)), zorder=2)
+        ax.set_xscale("log")
+        ax.set_xlim(0.3, 16)
+        ax.set_xticks([0.5, 1, 2, 5, 10], ["0.5", "1", "2", "5", "10"])
+        ax.grid(axis="x", color=GRID, linewidth=0.5, zorder=0)
+        ax.set_axisbelow(True)
+        ax.set_title(title, loc="left", fontsize=6.8, fontweight="bold", pad=5)
+        ax.set_xlabel("Odds ratio (95% CI)", fontsize=6.6)
+    axes[0].set_yticks(range(len(order)), order, fontsize=6.4)
+    for tick, name in zip(axes[0].get_yticklabels(), order):
+        if name.startswith("kidney"):
+            tick.set_fontweight("bold"); tick.set_color(ACCENT)
+    fig.tight_layout()
+    save(fig, "figure1")
+
+
+# ---------------------------------------------------------------- figure 2
+def figure2() -> None:
+    """Paired differences, peaks resampled, in the kidney-specific partition."""
+    j = json.loads((RESULTS / "specific_vs_shared.json").read_text())
+    pr = j.get("paired_kidney_specific", {})
+    if not pr:
+        print("  figure2 skipped: no paired results")
+        return
+    items = sorted(pr.items(), key=lambda kv: kv[1]["mean_log_or_diff"])
+    fig, ax = plt.subplots(figsize=(ONE_COL, 2.4))
+    for i, (name, v) in enumerate(items):
+        sig = v["excludes_zero"]
+        c = ACCENT if sig else NEUTRAL
+        ax.plot([v["lo"], v["hi"]], [i, i], color=c, linewidth=1.6,
+                solid_capstyle="round", zorder=3)
+        ax.scatter([v["mean_log_or_diff"]], [i], s=17, color=c, marker="D",
+                   edgecolor=SURFACE, linewidth=0.6, zorder=4)
+    ax.axvline(0, color=INK2, linewidth=0.8, zorder=2)
+    ax.set_yticks(range(len(items)), [k for k, _ in items], fontsize=6.4)
+    ax.set_xlabel("Difference in log odds ratio\n"
+                  "podocyte ranking minus each alternative", linespacing=1.6,
+                  fontsize=6.8)
+    ax.grid(axis="x", color=GRID, linewidth=0.5, zorder=0)
+    ax.set_axisbelow(True)
+    ax.text(0.02, 1.02, "favours the alternative  |  favours podocyte",
+            transform=ax.transAxes, fontsize=6, color=INK2)
+    ax.set_title("Kidney-specific regions only", loc="left",
+                 pad=14, fontweight="bold", fontsize=7.4)
+    save(fig, "figure2")
+
+
+# ---------------------------------------------------------------- figure 3
 # The APOL1 gene body, exactly as the analysis scripts define it.
 GENE_START, GENE_END = 36_253_010, 36_267_530
 CODING = {"missense_variant", "synonymous_variant", "stop_gained",
@@ -87,7 +167,7 @@ CODING = {"missense_variant", "synonymous_variant", "stop_gained",
           "splice_acceptor_variant", "splice_donor_variant"}
 
 
-def figure1() -> None:
+def figure3() -> None:
     """Why the expression channel was discarded.
 
     Two claims have to be visible: that predicted effect tracks position rather
@@ -166,133 +246,45 @@ def figure1() -> None:
     fig.suptitle("The expression channel tracks position, and its negative control fails",
                  x=0.02, ha="left", fontweight="bold", fontsize=8)
     fig.tight_layout(rect=[0, 0, 1, 0.93])
-    save(fig, "figure1")
-
-
-# ---------------------------------------------------------------- figure 2
-def figure2() -> None:
-    """The enrichment that the rest of the paper then constrains."""
-    e = json.loads((RESULTS / "encode_validation.json").read_text())
-    t = e["support_1"]["tests"]
-    tops = [25, 50, 100, 200]
-    series = {
-        "Kidney ATAC": [t[f"atac_kidney_top{n}"]["odds_ratio"] for n in tops],
-        "Podocyte DNase": [t[f"dnase_glomerular_visceral_epithelial_cell_top{n}"]
-                           ["odds_ratio"] for n in tops],
-    }
-    fig, ax = plt.subplots(figsize=(ONE_COL, 2.6))
-    x = np.arange(len(tops))
-    for i, (lab, vals) in enumerate(series.items()):
-        ax.plot(x, vals, color=ACCENT if i == 0 else NEUTRAL,
-                linewidth=1.4 if i == 0 else 1.1,
-                marker="D" if i == 0 else "o", markersize=4.5,
-                markeredgecolor=SURFACE, markeredgewidth=0.7, zorder=4)
-        ax.annotate(lab, (x[-1], vals[-1]), xytext=(4, 0),
-                    textcoords="offset points", va="center", fontsize=6.4,
-                    color=ACCENT if i == 0 else INK2,
-                    fontweight="bold" if i == 0 else "normal")
-    ax.axhline(1, color=INK2, linewidth=0.7, linestyle=(0, (4, 3)), zorder=2)
-    ax.text(-0.35, 1.06, "no enrichment", fontsize=6, color=INK2)
-    ax.set_xticks(x, [f"top {n}" for n in tops])
-    ax.set_xlim(-0.45, len(tops) - 0.35)
-    ax.set_ylim(0, 9.4)
-    ax.set_ylabel("Odds ratio for falling in measured\nkidney open chromatin",
-                  linespacing=1.5)
-    ax.set_xlabel("Ranking depth")
-    ax.grid(axis="y", color=GRID, linewidth=0.5, zorder=0)
-    ax.set_axisbelow(True)
-    ax.set_title("Top-ranked variants fall in measured kidney chromatin",
-                 loc="left", pad=6, fontweight="bold")
-    save(fig, "figure2")
-
-
-# ---------------------------------------------------------------- figure 3
-def figure3() -> None:
-    """The tissue-label control, and the point of the paper.
-
-    One row per tissue output used to rank. The four markers are the four
-    ranking depths, so both the level and its spread are visible. Kidney rows
-    are black and heavier; every other row is grey. Nothing here depends on
-    hue, which is the whole idea.
-    """
-    e = pd.read_csv(RESULTS / "wrong_tissue_enrichment.csv")
-    # Clinical readership: ENCODE biosample names are not how nephrologists
-    # refer to these cells, and "glomerular visceral epithelial cell" buries
-    # the one row the figure exists to highlight.
-    PRETTY = {
-        "glomerular_visceral_epithelial_cell": "Podocyte (kidney)",
-        "kidney": "Whole kidney",
-        "hepatocyte": "Hepatocyte",
-        "frontal_cortex": "Frontal cortex",
-        "heart_left_ventricle": "Heart, left ventricle",
-        "left_lung": "Lung (left)",
-    }
-    e["label"] = e["ranked_by"].map(
-        lambda x: PRETTY.get(x, x.replace("_", " ").capitalize()))
-    order = (e.groupby("label")["odds_ratio"].median()
-             .sort_values().index.tolist())
-    kidney = set(e[e["is_kidney"]]["label"])
-
-    fig, ax = plt.subplots(figsize=(TWO_COL * 0.62, 3.1))
-    for i, lab in enumerate(order):
-        vals = e[e["label"] == lab].sort_values("top_n")["odds_ratio"].values
-        is_k = lab in kidney
-        c = ACCENT if is_k else NEUTRAL
-        ax.plot([vals.min(), vals.max()], [i, i], color=c,
-                linewidth=2.0 if is_k else 1.2, solid_capstyle="round", zorder=3)
-        ax.scatter(vals, [i] * len(vals), s=15 if is_k else 11, color=c,
-                   marker="D" if is_k else "o",
-                   edgecolor=SURFACE, linewidth=0.6, zorder=4)
-    ax.set_yticks(range(len(order)), order, fontsize=6.4)
-    for tick, lab in zip(ax.get_yticklabels(), order):
-        if lab in kidney:
-            tick.set_fontweight("bold")
-            tick.set_color(ACCENT)
-    ax.axvline(1, color=INK2, linewidth=0.7, linestyle=(0, (4, 3)), zorder=2)
-    ax.set_xlabel("Odds ratio for falling in measured kidney open chromatin\n"
-                  "(four markers = ranking depths 25, 50, 100, 200)",
-                  linespacing=1.6)
-    ax.grid(axis="x", color=GRID, linewidth=0.5, zorder=0)
-    ax.set_axisbelow(True)
-    ax.set_xlim(0, 7.4)
-    ax.set_title("Ranking by the wrong tissue finds kidney chromatin just as well",
-                 loc="left", pad=6, fontweight="bold")
     save(fig, "figure3")
 
 
 # ---------------------------------------------------------------- figure 4
 def figure4() -> None:
-    """The control locus. Same pipeline, somewhere it should not work."""
+    """The control locus, with intervals. No exclusion is claimed."""
     n = json.loads((RESULTS / "negative_control_locus.json").read_text())
     e = json.loads((RESULTS / "encode_validation.json").read_text())
     t = e["support_1"]["tests"]
     tops = [25, 50, 100, 200]
     test = [t[f"dnase_glomerular_visceral_epithelial_cell_top{k}"]["odds_ratio"]
             for k in tops]
-    ctrl = {r["top_n"]: r["odds_ratio"] for r in n["enrichment"]}
-    ctrl = [ctrl.get(k, 0.0) for k in tops]
+    ctrl = {r["top_n"]: r for r in n["enrichment"]}
 
     fig, ax = plt.subplots(figsize=(ONE_COL, 2.6))
-    x = np.arange(len(tops))
-    w = 0.36
-    ax.bar(x - w / 2, test, w, color=ACCENT, zorder=3,
-           label="APOL1-MYH9 locus")
-    ax.bar(x + w / 2, ctrl, w, color=NEUTRAL, zorder=3,
-           label="beta-globin control locus")
-    for xi, v in zip(x - w / 2, test):
-        ax.text(xi, v + 0.18, f"{v:.1f}", ha="center", fontsize=6, color=INK2)
-    for xi, v in zip(x + w / 2, ctrl):
-        ax.text(xi, v + 0.18, f"{v:.1f}", ha="center", fontsize=6, color=INK2)
-    ax.axhline(1, color=INK2, linewidth=0.7, linestyle=(0, (4, 3)), zorder=2)
-    ax.set_xticks(x, [f"top {k}" for k in tops])
-    ax.set_ylim(0, 7.6)
-    ax.set_ylabel("Odds ratio for falling in measured\nkidney open chromatin",
-                  linespacing=1.5)
-    ax.set_xlabel("Ranking depth")
-    ax.grid(axis="y", color=GRID, linewidth=0.5, zorder=0)
+    y = np.arange(len(tops))
+    for i, k in enumerate(tops):
+        r = ctrl.get(k)
+        if r:
+            hi = min(r["ci_high"], 30)
+            ax.plot([max(r["ci_low"], 0.05), hi], [i, i], color=NEUTRAL,
+                    linewidth=1.5, solid_capstyle="round", zorder=3)
+            ax.scatter([max(r["or_conditional"], 0.05)], [i], s=14,
+                       color=NEUTRAL, edgecolor=SURFACE, linewidth=0.6, zorder=4)
+        ax.scatter([test[i]], [i], s=20, color=ACCENT, marker="D",
+                   edgecolor=SURFACE, linewidth=0.7, zorder=5)
+    ax.axvline(1, color=INK2, linewidth=0.7, linestyle=(0, (4, 3)), zorder=2)
+    ax.set_xscale("log")
+    ax.set_xlim(0.04, 40)
+    ax.set_xticks([0.1, 1, 10], ["0.1", "1", "10"])
+    ax.set_yticks(y, [f"top {k}" for k in tops], fontsize=6.6)
+    ax.set_xlabel("Odds ratio (log scale)")
+    ax.grid(axis="x", color=GRID, linewidth=0.5, zorder=0)
     ax.set_axisbelow(True)
-    ax.legend(loc="upper left", fontsize=6.2, handlelength=1.1)
-    ax.set_title("The same ranking finds nothing at a control locus",
+    ax.scatter([], [], s=20, color=ACCENT, marker="D", label="APOL1-MYH9 locus")
+    ax.plot([], [], color=NEUTRAL, linewidth=1.5,
+            marker="o", markersize=4, label="control locus, 95% CI")
+    ax.legend(loc="lower right", fontsize=6.2, handlelength=1.4)
+    ax.set_title("Control intervals include the test-locus estimate",
                  loc="left", pad=6, fontweight="bold")
     save(fig, "figure4")
 
