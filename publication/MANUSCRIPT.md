@@ -20,37 +20,36 @@ machine learning; MYH9
 ## Abstract
 
 **Background and hypothesis.** Kidney disease risk at the APOL1 locus is
-attributed to two coding haplotypes, yet 91.8% of catalogued variation there is
-non-coding and only a minority of two-allele carriers develop disease. Regulatory
-variants altering APOL1 expression dose are a plausible modifier.
-Sequence-to-function models predict regulatory activity from DNA alone and are
-proposed for this task. We asked what such a model can resolve here, testing
-every answer against data it never saw.
+attributed to two coding haplotypes, yet 91.8% of variation there is
+non-coding and only a minority of two-allele carriers develop disease. Regulatory variants
+altering expression dose are a plausible modifier, and sequence-to-function
+models are proposed for finding them. We asked what such a model
+can resolve, testing each answer against data it never saw.
 
 **Methods.** We scored 1,930 variants common in African populations across
 chr22:36,140,330-36,388,018 with AlphaGenome, using a gene-masked expression
-scorer and position-local accessibility scorers. Rankings were tested for
-enrichment in independently measured ENCODE kidney chromatin against a
-background of the other common variants at the same locus. Three controls were
-pre-specified: linkage disequilibrium against all common APOL1 gene-body
-variation using phased haplotypes in seven African populations kept separate; the
-same ranking performed with eight deliberately non-renal tissue outputs; and the
-identical pipeline at a length-matched beta-globin control locus.
+scorer and position-local accessibility scorers, and tested each ranking for
+enrichment in measured ENCODE kidney chromatin against the other common variants
+at the same locus. Three controls were pre-specified: linkage disequilibrium
+against all common APOL1 gene-body variation, using phased haplotypes in seven
+African populations kept separate; the same ranking using eight non-renal tissue
+outputs; and the identical pipeline at a length-matched beta-globin locus.
 
-**Results.** The expression scorer rediscovered proximity to the gene, failed its
-pre-specified negative control and was discarded. The accessibility channel was
+**Results.** The expression scorer rediscovered proximity to the gene, failed its negative
+control and was discarded. The accessibility channel was
 unconfounded and its top-ranked variants were enriched in measured kidney
-chromatin (odds ratio 8.14 for the top 25 by kidney ATAC, p = 2.4x10-6). All
-three controls then constrained that result. Seven of fifteen candidates were
-correlated with gene-body haplotype structure. Enrichment was no stronger in
-podocytes than in other kidney cell types, and no stronger for kidney than for
-hepatocyte, lung or cortex outputs. At the control locus the ranking found
-nothing.
+chromatin (odds ratio 8.14 for the top 25 by kidney ATAC, p = 2.4x10-6). The
+controls then constrained that result. Seven of fifteen candidates were correlated
+with gene-body haplotype structure, and three were published regulatory variants
+whose targets are APOL4 or FOXRED2, not APOL1. Enrichment was
+no stronger in podocytes than in other kidney cell types, and no stronger for
+kidney than for hepatocyte, lung or cortex outputs. At the control locus the
+ranking found nothing.
 
-**Conclusions.** The model detects regulatory positions, and detects them where
-they exist, but the tissue label on the request carries no usable information.
-Predictions labelled kidney should not be treated as kidney-specific without a
-control of this kind.
+**Conclusions.** The ranking recovers established regulatory variants without
+expression data, so it finds real regulatory positions. But it does not
+identify the tissue, and where a target gene is known it is not APOL1. Tissue labels
+should not be trusted without a control of this kind.
 
 ---
 
@@ -72,8 +71,9 @@ control of this kind.
   hepatocyte output found measured kidney chromatin as well as ranking by kidney.
 - The obvious readout, a gene-masked expression scorer, largely recovers
   proximity to the gene and fails a pre-specified negative control.
-- Over half of an apparently novel candidate set was correlated with the
-  haplotype structure that already explains the locus.
+- Over half of an apparently novel candidate set was correlated with local
+  haplotype structure or already published, and where target genes are known they
+  are APOL4 or FOXRED2 rather than APOL1.
 
 **Potential impact**
 
@@ -99,16 +99,18 @@ Penetrance is incomplete: only a minority of two-allele carriers develop kidney
 disease, and the mechanism is dose-dependent, so genetic modifiers of APOL1
 expression are an obvious candidate explanation [3]. The locus is overwhelmingly
 non-coding, with 98,875 of 107,737 catalogued variants (91.8%) outside coding
-sequence, and that variation is largely unexamined. Kidney expression
+sequence, and that variation is largely unexamined. Kidney regulatory elements and
+their cell-type assignment have been mapped in their own right [4, 5], but not
+for this locus. Kidney expression
 quantitative trait loci are poorly powered to examine it, because kidney sample
-sizes are the smallest in the major resources [4].
+sizes are the smallest in the major resources [6].
 
 Sequence-to-function models predict regulatory activity directly from DNA and are
-proposed as a route around that limitation [5, 6]. Earlier models of this family
-perform less well in regions that distinguish one cell type from another [7, 8],
+proposed as a route around that limitation [7, 8]. Earlier models of this family
+perform less well in regions that distinguish one cell type from another [9, 10],
 and a companion analysis found that kidney-labelled outputs of the model used
 here predicted kidney expression effects no better than outputs labelled for
-other tissues [9].
+other tissues [11].
 
 We therefore asked two questions together. Can such a model prioritise regulatory
 candidates at this locus? And does the tissue label on its output carry the
@@ -128,7 +130,7 @@ least 1%, giving 1,930 variants, of which 1,865 were non-coding.
 
 ### 2.2 Scoring
 
-Variants were scored with AlphaGenome [6] using a 1,048,576 bp context centred on
+Variants were scored with AlphaGenome [8] using a 1,048,576 bp context centred on
 each variant, under the developers' non-commercial research terms. Two channels
 were used: a gene-masked RNA scorer restricted to the APOL1 transcript, and
 position-local DNase and ATAC scorers. Kidney tracks were named explicitly rather
@@ -144,19 +146,21 @@ they did not, the ranking was not to be used.
 
 ### 2.4 Independent validation
 
-Eight ENCODE DNase-seq peak files from human kidney (GRCh38, released) were
+Eight ENCODE DNase-seq peak files from human kidney (GRCh38, released) [12] were
 merged over the locus. Enrichment of top-ranked variants in measured peaks was
 tested by Fisher exact test against the other common variants at the same locus,
 not against the genome, so that sequence composition, gene density and
 mappability are matched by construction. Validation was repeated separately
 against peaks from podocyte, proximal tubule, kidney epithelial, renal cortical
-epithelial and kidney tubule biosamples.
+epithelial and kidney tubule biosamples, the cell types for which kidney
+accessibility has been characterised [13, 14].
 
 ### 2.5 The three controls
 
 **Linkage disequilibrium.** Each candidate was tested against every common
 variant in the APOL1 gene body, which contains both G1 and G2, using phased
-1000 Genomes haplotypes in seven African populations analysed separately;
+1000 Genomes phase 3 haplotypes [15] in seven African populations analysed
+separately;
 pooling inflates linkage through population structure. G2 could not be tested
 directly because it is a six-base deletion absent from that call set. Intervals
 were obtained by bootstrapping haplotypes within population for the strongest
@@ -171,7 +175,15 @@ enrichment in measured kidney chromatin.
 chr11:5,150,000-5,397,688, matched on physical length, paralogue-cluster
 structure and, by frequency-stratified subsampling, on variant count.
 
-### 2.6 Code and data
+### 2.6 Prior-record check
+
+Each surviving candidate was searched against Europe PMC full text, which indexes
+supplementary tables, against the GWAS Catalog [16] and against GTEx v8 [17]. A
+positive control confirmed that full-text search reaches variants of this kind:
+rs5750250, a known MYH9 variant at this locus, returns 24 records. Zero-hit
+results are therefore real negatives.
+
+### 2.7 Code and data
 
 All code, the frozen variant set and every result table are deposited (section
 below). Thirteen numbered scripts reproduce every reported number.
@@ -215,21 +227,51 @@ gene-agnostic and never targeted APOL1. It does mean the candidates cannot be
 described as APOL1 regulatory variants, and it returns the locus to the gene from
 which the association was moved in 2010.
 
-### 3.4 The ranking is not cell-type specific
+### 3.4 Two candidates recover established regulatory variants, and their targets are not APOL1
+
+We checked each candidate against the published record. Two are already
+high-confidence regulatory variants: rs132708 and rs5750234 are GTEx expression
+quantitative trait loci for **APOL4** across a dozen tissues, at p = 5.9x10-25
+and 1.6x10-29 respectively [17]. A third, rs713797, is a catalogued plasma
+protein quantitative trait locus for IL10RB, IL18BP and ADAM22 and a strong
+expression quantitative trait locus for **FOXRED2** [16].
+
+This cuts two ways and both matter. Recovering variants that eQTL studies
+independently established as regulatory is evidence that the ranking selects real
+regulatory positions, arrived at without using expression data. But where a
+target gene is known, it is APOL4 or FOXRED2, not APOL1. The caution above is
+therefore not hypothetical: for the three candidates whose targets are
+established, none of them is the gene of interest.
+
+Of the remainder, rs4820232 sits about 2 kb from rs5750250 and is correlated with
+it (r-squared 0.55, D' 1.0 in African populations); that variant is the strongest
+single association in the MYH9 intron 13 to 15 region identified by dense mapping
+in 2010 [18]. It is best read as a marker of that older signal rather than as a
+new one. rs136204 is a GTEx eQTL for MYH9 in testis but has no kidney record, and
+rs183925240 and rs6000250 have no published record of any kind, although
+rs183925240 is the candidate our own stability analysis cannot test.
+
+The candidate list is therefore two variants with no prior record, one recovering
+an older MYH9 signal, three already-published regulatory variants with non-APOL1
+targets, and one untestable. No candidate has a kidney expression quantitative
+trait locus in GTEx, though kidney cortex there is the smallest tissue and
+underpowered [6].
+
+### 3.5 The ranking is not cell-type specific
 
 The ranking predicts podocyte accessibility. Tested against each kidney cell type
 separately, enrichment was strong in all (odds ratios 8 to 16) and podocyte led
 at one of four thresholds. The original validation, against whole kidney only,
 could not have detected this in either direction.
 
-### 3.5 The tissue label carries no usable information
+### 3.6 The tissue label carries no usable information
 
 Ranking the same variants by predicted accessibility in eight non-renal tissues
 and asking how enriched each ranking is in measured **kidney** chromatin gave
 Table 2. Hepatocyte exceeded podocyte at two of four thresholds; kidney led at
 one. Only the column selected from the model's output differs between rows.
 
-### 3.6 The pipeline does not manufacture enrichment
+### 3.7 The pipeline does not manufacture enrichment
 
 At the beta-globin control locus the same ranking found 2 of the top 200 variants
 in measured kidney chromatin against 0.7% expected (odds ratio 1.44, p = 0.44),
@@ -250,13 +292,13 @@ useful capability, but it is a general one, and the tissue label is close to
 decorative for this task.
 
 This is the second demonstration of that pattern in this model by our group, on a
-different task with a different readout [9]. A companion analysis swapped tissue
+different task with a different readout [11]. A companion analysis swapped tissue
 outputs for predicting expression effects across 54 tissues; this study swaps them
 for predicting chromatin accessibility at one locus. Both find that the label does
 less than its use implies. It is consistent with reports on earlier models of this
 family, which capture promoter determinants while largely ignoring distal
-enhancers [7] and perform less well in precisely the regions that distinguish cell
-types [8].
+enhancers [9], perform less well in precisely the regions that distinguish cell
+types [10], and explain individual differences in expression poorly [19, 20].
 
 The awkward detail deserves a direct answer rather than a footnote. Five of the
 seven surviving candidates lie inside MYH9, the gene to which this association was
@@ -264,10 +306,27 @@ first mapped [2] and from which it was moved in 2010 [1]. We are not reopening
 that question, and nothing here is evidence that MYH9 rather than APOL1 explains
 the disease association. The explanation is mundane: our ranking channel is
 position-local and gene-agnostic, MYH9 occupies a large share of the interval, and
-open chromatin is denser there. It nevertheless disciplines the interpretation.
-Any claim that these variants regulate APOL1 would require evidence of target-gene
-assignment that we do not have, and the honest description is that they are
-candidate regulatory positions at the APOL1-MYH9 locus with no assigned target.
+open chromatin is denser there.
+
+What disciplines the interpretation further is where the published target genes
+point. For the three candidates whose regulatory activity is already established,
+the target is APOL4 or FOXRED2 [16, 17]. So the concern is not that target
+assignment is merely absent; where it exists, it is not APOL1. Any claim that
+these variants act on APOL1 would need evidence we do not have.
+
+Two 2026 studies bear directly on the surrounding claim and should be
+distinguished rather than ignored. Regulatory variants near APOL1 have been
+associated with circulating APOL1 protein levels in 43,587 UK Biobank
+participants, with the conclusion that regulatory variation contributes to
+ancestry-related differences beyond the coding haplotypes [21]. Separately, APOL1
+risk genotypes have been shown to alter DNA methylation at two enhancers and two
+promoters within the APOL1-APOL4-MYH9 region, with those sites associated with
+eGFR and albuminuria [22]. Neither names any candidate reported here, so these
+are distinct observations, but the idea that regulatory variation at this locus
+matters is not ours and is not new. What remains uncharacterised is MYH9
+regulatory variation in kidney specifically: dense mapping in 2010 found no coding
+change explaining the MYH9 association and left two predicted splicing modifiers
+unvalidated [18], and that gap is still open.
 
 Three limitations bound the candidate list further. None of these variants has
 been shown to alter expression of anything: enrichment in open chromatin is a
@@ -285,10 +344,12 @@ it removed more than half of what initially looked novel here; and a matched
 control locus, because it is the only cheap way to show the pipeline is not
 producing enrichment everywhere. None requires new data.
 
-What remains is modest and real. A method that narrows roughly 99,000 non-coding
-variants at a locus of major clinical interest to a handful worth putting in front
-of a bench, with honest error bars and no claim that the model knows which tissue
-it is talking about.
+What remains is modest and real. The ranking independently recovered variants that
+expression studies had already established as regulatory, without using any
+expression data, which is a genuine if unglamorous validation. It narrows roughly
+99,000 non-coding variants to a short list, of which two have no prior record at
+all. And it does so with honest error bars, no claim that the model knows which
+tissue it is describing, and no claim about which gene any candidate acts on.
 
 ## Data availability
 
@@ -329,20 +390,25 @@ were accessed and no participants were recruited.
 1. Genovese G, Friedman DJ, Ross MD, et al. Association of trypanolytic ApoL1 variants with kidney disease in African Americans. Science 2010; 329: 841-845
 2. Kopp JB, Smith MW, Nelson GW, et al. MYH9 is a major-effect risk gene for focal segmental glomerulosclerosis. Nat Genet 2008; 40: 1175-1184
 3. Ojo AO, Adu D, Bramham K, et al. APOL1 kidney disease: a KDIGO Controversies Conference report. Kidney Int 2025; 108: 763-779
-4. Kerimov N, Hayhurst JD, Peikova K, et al. A compendium of uniformly processed human gene expression and splicing quantitative trait loci. Nat Genet 2021; 53: 1290-1299
-5. Linder J, Srivastava D, Yuan H, et al. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. Nat Genet 2025; 57: 949-961
-6. Avsec Ž, Latysheva N, Cheng J, et al. Advancing regulatory variant effect prediction with AlphaGenome. Nature 2026; 649: 1206-1218
-7. Karollus A, Mauermeier T, Gagneur J. Current sequence-based models capture gene expression determinants in promoters but mostly ignore distal enhancers. Genome Biol 2023; 24: 56
-8. Kathail P, Shuai RW, Chung R, et al. Current genomic deep learning models display decreased performance in cell type-specific accessible regions. Genome Biol 2024; 25: 202
-9. Lawrence C. Kidney representation and uncertainty in AlphaGenome regulatory variant prediction. Submitted
-10. ENCODE Project Consortium. Expanded encyclopaedias of DNA elements in the human and mouse genomes. Nature 2020; 583: 699-710
-11. 1000 Genomes Project Consortium. A global reference for human genetic variation. Nature 2015; 526: 68-74
-12. Muto Y, Wilson PC, Ledru N, et al. Single cell transcriptional and chromatin accessibility profiling redefine cellular heterogeneity in the adult human kidney. Nat Commun 2021; 12: 2190
-13. Gisch DL, Brennan M, Lake BB, et al. The chromatin landscape of healthy and injured cell types in the human kidney. Nat Commun 2024; 15: 433
-14. Sheng X, Guan Y, Ma Z, et al. Mapping the genetic architecture of human traits to cell types in the kidney identifies mechanisms of disease and potential treatments. Nat Genet 2021; 53: 1322-1333
-15. Loeb GB, Kathail P, Shuai RW, et al. Variants in tubule epithelial regulatory elements mediate most heritable differences in human kidney function. Nat Genet 2024; 56: 2078-2092
-16. Sasse A, Ng B, Spiro AE, et al. Benchmarking of deep neural networks for predicting personal gene expression from DNA sequence highlights shortcomings. Nat Genet 2023; 55: 2060-2064
-17. Huang C, Shuai RW, Baokar P, et al. Personal transcriptome variation is poorly explained by current genomic deep learning models. Nat Genet 2023; 55: 2056-2059
+4. Sheng X, Guan Y, Ma Z, et al. Mapping the genetic architecture of human traits to cell types in the kidney identifies mechanisms of disease and potential treatments. Nat Genet 2021; 53: 1322-1333
+5. Loeb GB, Kathail P, Shuai RW, et al. Variants in tubule epithelial regulatory elements mediate most heritable differences in human kidney function. Nat Genet 2024; 56: 2078-2092
+6. Kerimov N, Hayhurst JD, Peikova K, et al. A compendium of uniformly processed human gene expression and splicing quantitative trait loci. Nat Genet 2021; 53: 1290-1299
+7. Linder J, Srivastava D, Yuan H, et al. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. Nat Genet 2025; 57: 949-961
+8. Avsec Ž, Latysheva N, Cheng J, et al. Advancing regulatory variant effect prediction with AlphaGenome. Nature 2026; 649: 1206-1218
+9. Karollus A, Mauermeier T, Gagneur J. Current sequence-based models capture gene expression determinants in promoters but mostly ignore distal enhancers. Genome Biol 2023; 24: 56
+10. Kathail P, Shuai RW, Chung R, et al. Current genomic deep learning models display decreased performance in cell type-specific accessible regions. Genome Biol 2024; 25: 202
+11. Lawrence C. Kidney representation and uncertainty in AlphaGenome regulatory variant prediction. Submitted
+12. ENCODE Project Consortium. Expanded encyclopaedias of DNA elements in the human and mouse genomes. Nature 2020; 583: 699-710
+13. Muto Y, Wilson PC, Ledru N, et al. Single cell transcriptional and chromatin accessibility profiling redefine cellular heterogeneity in the adult human kidney. Nat Commun 2021; 12: 2190
+14. Gisch DL, Brennan M, Lake BB, et al. The chromatin landscape of healthy and injured cell types in the human kidney. Nat Commun 2024; 15: 433
+15. 1000 Genomes Project Consortium. A global reference for human genetic variation. Nature 2015; 526: 68-74
+16. Sollis E, Mosaku A, Abid A, et al. The NHGRI-EBI GWAS Catalog: knowledgebase and deposition resource. Nucleic Acids Res 2023; 51: D977-D985
+17. GTEx Consortium. The GTEx Consortium atlas of genetic regulatory effects across human tissues. Science 2020; 369: 1318-1330
+18. Nelson GW, Freedman BI, Bowden DW, et al. Dense mapping of MYH9 localizes the strongest kidney disease associations to the region of introns 13 to 15. Hum Mol Genet 2010; 19: 1805-1815
+19. Sasse A, Ng B, Spiro AE, et al. Benchmarking of deep neural networks for predicting personal gene expression from DNA sequence highlights shortcomings. Nat Genet 2023; 55: 2060-2064
+20. Huang C, Shuai RW, Baokar P, et al. Personal transcriptome variation is poorly explained by current genomic deep learning models. Nat Genet 2023; 55: 2056-2059
+21. Adamson WE, Noyes H, Ogunsola J, et al. Coding, modifier, and regulatory effects shape circulating APOL1 levels. Hum Mol Genet 2026; 35: ddag087
+22. Li Y, Bozack AK, Schlosser P, et al. APOL1 risk genotypes influence DNA methylation across multiple genomic elements in APOL1-APOL4-MYH9 region in African Americans. Clin Epigenetics 2026; 18: 147
 
 ## Figure legends
 
@@ -365,22 +431,28 @@ the test locus, same pipeline and same peak source.
 ## Tables
 
 **Table 1.** The seven candidates with point estimates below r-squared 0.2
-against APOL1 gene-body haplotype structure, with bootstrap intervals, nearest
-protein-coding gene, annotated regulatory element and the number of kidney
-biosample types in which the position is measurably open.
+against APOL1 gene-body haplotype structure. Bootstrap intervals are from
+resampling haplotypes within population for the strongest gene-body partner.
+"Open in" is the number of six kidney biosample types in which the position is
+measurably open. "Prior record" is the published regulatory evidence found by the
+search in section 2.6; note that no candidate has a GTEx kidney cortex eQTL,
+which is underpowered there.
 
-| Variant | African AF | r² vs gene body (95% CI) | Minor allele copies | Nearest gene | Annotated element | Open in |
+| Variant | African AF | r² vs gene body (95% CI) | Nearest gene | Element | Open in | Prior record |
 |---|---|---|---|---|---|---|
-| rs132708 | 0.839 | 0.124 (0.02-0.29) | 1118 | APOL4, 0 bp | none | 1 of 6 |
-| rs5750234 | 0.759 | 0.112 (0.02-0.26) | 1094 | APOL4, 4.3 kb | enhancer | 0 of 6 |
-| rs136204 | 0.401 | 0.094 (0.03-0.17) | 443 | MYH9, 0 bp | enhancer | 6 of 6 |
-| rs713797 | 0.396 | 0.120 (0.05-0.21) | 560 | MYH9, 0 bp | none | 0 of 6 |
-| rs4820232 | 0.301 | 0.180 (0.07-0.32) | 318 | MYH9, 0 bp | none | 0 of 6 |
-| rs6000250 | 0.111 | 0.173 (0.02-0.42) | 198 | MYH9, 0 bp | none | 5 of 6 |
-| rs183925240 | 0.026 | 0.115 (0.00-0.66) | 43 | MYH9, 0 bp | enhancer | 6 of 6 |
+| rs132708 | 0.839 | 0.124 (0.02-0.29) | APOL4, 0 bp | none | 1 of 6 | **APOL4 eQTL, p = 5.9x10-25** |
+| rs5750234 | 0.759 | 0.112 (0.02-0.26) | APOL4, 4.3 kb | enhancer | 0 of 6 | **APOL4 eQTL, p = 1.6x10-29** |
+| rs136204 | 0.401 | 0.094 (0.03-0.17) | MYH9, 0 bp | enhancer | 6 of 6 | MYH9 eQTL, testis only |
+| rs713797 | 0.396 | 0.120 (0.05-0.21) | MYH9, 0 bp | none | 0 of 6 | **FOXRED2 eQTL; pQTL x3** |
+| rs4820232 | 0.301 | 0.180 (0.07-0.32) | MYH9, 0 bp | none | 0 of 6 | r² 0.55 with rs5750250 |
+| rs6000250 | 0.111 | 0.173 (0.02-0.42) | MYH9, 0 bp | none | 5 of 6 | none found |
+| rs183925240 | 0.026 | 0.115 (0.00-0.66) | MYH9, 0 bp | enhancer | 6 of 6 | none found |
 
-Only rs136204 has an interval lying wholly below 0.2. rs183925240 is reported as
-untestable on 43 minor-allele copies.
+Only rs136204 has an interval lying wholly below 0.2. rs183925240 rests on 43
+minor-allele copies and is reported as untestable. Where a target gene is
+established it is APOL4 or FOXRED2, not APOL1. Only rs6000250 and rs183925240
+have no prior record of any kind. Minor-allele copy counts and the full interval
+table are deposited.
 
 **Table 2.** Enrichment in measured kidney chromatin by the tissue output used to
 rank the same 1,930 variants. Odds ratios against the other common variants at
