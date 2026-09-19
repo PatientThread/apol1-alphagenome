@@ -1,0 +1,74 @@
+{
+  "locus": "chr22:36140330-36388018",
+  "kidney_terms": [
+    "kidney",
+    "glomerular visceral epithelial cell"
+  ],
+  "comparison_terms": [
+    "liver",
+    "lung",
+    "heart left ventricle",
+    "stomach",
+    "spleen",
+    "thyroid gland"
+  ],
+  "partitions": {
+    "kidney-specific": {
+      "peaks": 39,
+      "bp": 14686
+    },
+    "shared": {
+      "peaks": 71,
+      "bp": 29890
+    },
+    "other-tissue-specific": {
+      "peaks": 47,
+      "bp": 16354
+    }
+  },
+  "kidney_specific_scored_variants": 84,
+  "top_n": 200,
+  "verdict": {
+    "best_kidney_or": 4.279,
+    "best_nonkidney_or": 2.478,
+    "kidney_leads": true
+  },
+  "paired_kidney_specific": {
+    "kidney (whole)": {
+      "mean_log_or_diff": 1.5789021004162096,
+      "lo": 0.9144148215725424,
+      "hi": 2.3439529767238247,
+      "excludes_zero": true
+    },
+    "hepatocyte": {
+      "mean_log_or_diff": 0.8376424683224853,
+      "lo": 0.5305118886980427,
+      "hi": 1.145411822690958,
+      "excludes_zero": true
+    },
+    "liver": {
+      "mean_log_or_diff": 1.6609591117234197,
+      "lo": 0.7516387417958907,
+      "hi": 2.5068107210013055,
+      "excludes_zero": true
+    },
+    "lung": {
+      "mean_log_or_diff": 0.537030535471816,
+      "lo": -0.16481555735639708,
+      "hi": 1.1385350132952425,
+      "excludes_zero": false
+    },
+    "brain": {
+      "mean_log_or_diff": 0.790317717657466,
+      "lo": 0.16925135836211552,
+      "hi": 1.3938175729935272,
+      "excludes_zero": true
+    },
+    "stomach": {
+      "mean_log_or_diff": 1.04146438447537,
+      "lo": 0.4048145216424289,
+      "hi": 1.6620002578810265,
+      "excludes_zero": true
+    }
+  }
+}

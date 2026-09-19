@@ -26,3 +26,4 @@ venv/
 data/encode_celltype_peaks/*.bed.gz
 data/control_locus_peaks/*.bed.gz
 data/control_locus_variants.tsv.gz
+data/comparison_tissue_peaks/*.bed.gz
