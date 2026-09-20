@@ -1,0 +1,7 @@
+comparator,contrast_kidney_specific,contrast_pooled,delta_observed,delta_ci_low,delta_ci_high,excludes_zero
+stomach,1.052,0.656,0.396,-0.302,0.939,False
+hepatocyte,0.776,0.576,0.201,-0.095,0.55,False
+liver,1.514,1.431,0.083,-0.665,1.041,False
+lung,0.537,0.47,0.067,-0.501,0.517,False
+kidney (whole),1.514,1.495,0.019,-0.611,0.759,False
+brain,0.776,0.873,-0.096,-0.702,0.45,False

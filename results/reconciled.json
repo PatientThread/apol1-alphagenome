@@ -1,0 +1,64 @@
+{
+  "kidney_accessions": [
+    "ENCFF473YKR",
+    "ENCFF554CKH",
+    "ENCFF350FBW",
+    "ENCFF214HJG",
+    "ENCFF618RWK",
+    "ENCFF325DZQ",
+    "ENCFF019PKU",
+    "ENCFF971ABV"
+  ],
+  "comparison_accessions": {
+    "liver": [
+      "ENCFF085ZBB",
+      "ENCFF667IEN",
+      "ENCFF755OMA",
+      "ENCFF656NFM"
+    ],
+    "lung": [
+      "ENCFF012DFN",
+      "ENCFF727KMJ",
+      "ENCFF362PZG",
+      "ENCFF977RJR"
+    ],
+    "heart left ventricle": [
+      "ENCFF468IOL",
+      "ENCFF224XDL",
+      "ENCFF373BQL",
+      "ENCFF008MHP"
+    ],
+    "stomach": [
+      "ENCFF016LYI",
+      "ENCFF736VGS",
+      "ENCFF766LVG",
+      "ENCFF776FOR"
+    ],
+    "spleen": [
+      "ENCFF882DHT",
+      "ENCFF833RZL",
+      "ENCFF549ZJO",
+      "ENCFF979LPW"
+    ],
+    "thyroid gland": [
+      "ENCFF140XGY",
+      "ENCFF402XYJ",
+      "ENCFF593KGC",
+      "ENCFF539MXV"
+    ]
+  },
+  "kidney_peaks": 110,
+  "kidney_bp": 44576,
+  "kidney_specific_peaks": 39,
+  "kidney_specific_bp": 14686,
+  "shared_peaks": 71,
+  "shared_bp": 29890,
+  "partition_sums_to_parent": true,
+  "variant_universe": 1921,
+  "duplicates_removed": 9,
+  "primary_depth": 200,
+  "bootstrap_replicates": 500,
+  "resampling_unit": "kidney-specific peaks",
+  "n_comparators_contrast_changed": 0,
+  "n_comparators": 6
+}
