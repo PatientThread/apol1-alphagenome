@@ -1,20 +1,19 @@
-<!-- DRAFT 3. Rewritten after editorial review. THE CENTRAL CLAIM HAS INVERTED.
-     Draft 2 said the tissue label carries no usable information. Partitioning
-     measured accessible regions into tissue-specific and shared shows that it
-     does, and that the earlier endpoint could not see it. The paper is now about
-     benchmark design. Two further corrections: validation is NOT independent,
-     the model was trained on these exact tracks at a locus in its training fold;
-     and the control locus excludes nothing. The candidate list is demoted to an
-     illustration. No claim about prognosis, treatment or causality survives. -->
+<!-- DRAFT 4. Rewritten after the second editorial review, which found that the
+     pooled and partitioned kidney sets were different data, so the draft-3
+     headline was unsupported. Reconciled onto one frozen universe (script 16),
+     the podocyte ranking leads in every view and partitioning changes the tissue
+     contrast for none of six comparators. TWO SUCCESSIVE HEADLINES WERE THE SAME
+     ARTEFACT: mismatching the measured validation set to the predicted track.
+     That is now the paper. Claims are deliberately small. -->
 
-# Benchmark design determines whether a sequence model appears tissue-blind: a worked example at the APOL1-MYH9 locus
+# Interpreting tissue-labelled sequence-model rankings at APOL1-MYH9: a benchmark-design case study
 
 **Christopher Lawrence**
 Consultant Nephrologist, London, United Kingdom
 ORCID 0000-0002-8159-0879
 Correspondence: Christopher.lawrence3@nhs.net
 
-**Running head:** Benchmark design and apparent tissue-blindness
+**Running head:** Benchmark design at APOL1-MYH9
 
 **Keywords:** APOL1; chronic kidney disease; gene expression regulation;
 machine learning; MYH9
@@ -23,37 +22,36 @@ machine learning; MYH9
 
 ## Abstract
 
-**Background and hypothesis.** Sequence-to-function models are increasingly used
-to prioritise non-coding variants at kidney disease loci, and their tissue-labelled
-outputs are read as tissue-specific. We asked whether that reading is justified at
-the APOL1-MYH9 locus, and found that the answer depends almost entirely on how the
-benchmark is constructed.
+**Background and hypothesis.** Sequence-to-function models are increasingly
+applied to non-coding variation at kidney disease loci, and their tissue-labelled
+outputs are read as tissue-specific. We examined what such rankings can and
+cannot establish at the APOL1-MYH9 locus, and report two analytical errors we
+made before arriving at an interpretable result.
 
-**Methods.** We scored 1,930 variants common in African genetic-ancestry
-populations across chr22:36,140,330-36,388,018 with AlphaGenome, and tested
-rankings for enrichment in measured ENCODE kidney open chromatin against the other
-common variants at the same locus. We then repeated the test after partitioning
-measured accessible regions into those open in kidney but closed in six comparison
-tissues, those shared, and those specific to other tissues. Rankings were compared
-pairwise with peaks, not variants, as the resampling unit. Linkage disequilibrium
-with G1 and G2 was computed directly from phased haplotypes in seven African
-populations, reporting D' and the maximum r-squared the allele frequencies permit
-alongside r-squared.
+**Methods.** We scored 1,921 variants common in the African genetic-ancestry
+group across chr22:36,140,330-36,388,018 using AlphaGenome, and tested rankings
+for enrichment in measured ENCODE accessible regions against the other common
+variants at the same locus. Measured kidney regions were partitioned into those
+with no peak detected in six comparison tissues and those shared with at least
+one. Contrasts between rankings were estimated pairwise with peaks as the
+resampling unit, and the change in contrast between pooled and partitioned
+endpoints was estimated on the same resampled draws. Linkage disequilibrium with
+G1 and G2 was computed from phased haplotypes in seven African populations,
+reporting D' and the maximum r-squared the allele frequencies permit.
 
-**Results.** Pooling all measured kidney peaks, a hepatocyte ranking identified
-them almost as well as a kidney ranking, which suggests the tissue label is
-uninformative. Partitioning reverses this. In kidney-specific regions the podocyte
-ranking reached an odds ratio of 4.28 (95% CI 2.52-7.11) against 2.48 for the best
-non-kidney ranking, and exceeded five of six alternatives with paired intervals
-excluding zero. In regions specific to other tissues it was the weakest of seven.
-Shared regions, where all rankings perform similarly, dominate the locus and
-therefore dominate the pooled result.
+**Results.** Using one frozen variant set and one measured kidney union, the
+podocyte ranking led in every view: pooled odds ratio 8.94, kidney-restricted
+4.28, shared 8.13, against 5.58, 2.48 and 5.98 for the strongest non-renal
+ranking. The change in contrast on partitioning excluded zero for none of six
+comparators. Two earlier conclusions, that the tissue label was uninformative and
+that partitioning reversed this, were both artefacts of validating podocyte
+predictions against measured sets that did not match them.
 
-**Conclusions.** The model does encode tissue identity; the original benchmark
-could not detect it. Benchmarks that pool tissue-specific with shared regulatory
-regions will understate tissue discrimination. We also show that ENCODE-based
-validation of this model is not independent, and that candidate prioritisation at
-this locus survives neither linkage nor prior-literature scrutiny.
+**Conclusions.** In this exploratory single-locus analysis the podocyte-labelled
+ranking showed consistent enrichment in measured kidney accessible regions.
+Because the evaluated region and tracks overlap model training data, this concerns
+benchmark construction and does not establish generalisation, allele-specific
+accuracy or APOL1 modifiers.
 
 ---
 
@@ -62,33 +60,33 @@ this locus survives neither linkage nor prior-literature scrutiny.
 **What was known**
 
 - Two coding haplotypes at APOL1, G1 and G2, carry most of the excess kidney
-  disease risk in people of recent African ancestry, but only a minority of
-  two-allele carriers develop disease.
-- Sequence-to-function models are proposed for interpreting the non-coding
-  variation at such loci, and their tissue-labelled outputs are widely read as
-  carrying tissue-specific information.
+  disease risk in people of recent African ancestry, and disease depends on
+  expression dose.
+- Sequence-to-function models are proposed for interpreting non-coding variation
+  at such loci, and earlier models perform less well in regions that distinguish
+  cell types.
 - Regulatory variation at this locus is under active investigation, including
   variants associated with circulating APOL1 and methylation differences across
   the APOL1-APOL4-MYH9 region.
 
 **This study adds**
 
-- Whether a model appears tissue-blind depends on benchmark construction: pooling
-  tissue-specific with shared regulatory regions hid a discrimination that is
-  clear once the two are separated.
-- Validation of this model against ENCODE data is not independent; the tracks used
-  here are named training experiments and the locus lies in a training fold.
-- Candidate prioritisation at this locus did not survive scrutiny: low r-squared
-  with G1 and G2 reflected allele-frequency differences rather than haplotypic
-  independence for most candidates.
+- A worked demonstration that mismatching the measured validation set to the
+  predicted track can reverse the apparent conclusion, in either direction; we
+  made that error twice before detecting it by arithmetic.
+- Evaluation of this model against ENCODE data at this locus is not independent:
+  the tracks used are named training experiments and the region lies in a
+  training fold of the served checkpoint.
+- Low r-squared with G1 or G2 does not establish haplotypic independence when
+  allele frequencies differ, and most candidates failed once D' was examined.
 
 **Potential impact**
 
-- Investigators benchmarking these models in kidney should partition measured
-  regulatory regions by tissue restriction before concluding anything about
-  tissue specificity.
-- Model provenance, specifically the version used and the fold containing the
-  locus, should be reported as routinely as software versions.
+- Investigators should match the measured evaluation set to the predicted track
+  and verify that partitions sum to their parent set before interpreting
+  differences between them.
+- Model version and the fold containing the locus should be reported as routinely
+  as software versions, since the default served checkpoint holds nothing out.
 - Nothing here identifies a modifier of APOL1 penetrance, a target gene or a
   clinically actionable variant, and none is claimed.
 
@@ -99,123 +97,147 @@ this locus survives neither linkage nor prior-literature scrutiny.
 Two coding haplotypes at APOL1, G1 and G2, account for much of the excess risk of
 non-diabetic kidney disease in people of recent African genetic ancestry [1]. The
 association was first mapped to the adjacent gene MYH9 [2] and resolved to APOL1
-two years later, with the MYH9 signal attributed to linkage disequilibrium [1].
+two years later, the MYH9 signal being attributed to linkage disequilibrium [1].
 
-Penetrance is incomplete, and because the mechanism is dose-dependent, genetic
-modifiers of APOL1 expression are a plausible explanation [3]. Regulatory variation
-at this locus is under active investigation: cis-regulatory variants have been
-associated with circulating APOL1 concentration [4], and APOL1 risk genotypes are
-associated with methylation differences at enhancers and promoters across the
-APOL1-APOL4-MYH9 region [5]. Kidney expression resources have improved, including
-maps from 659 microdissected kidney samples [6], though ancestry representation and
-variant coverage remain limiting.
+Penetrance is incomplete. Transgenic expression of the risk variants in podocytes
+causes kidney disease in mice in a dose-dependent manner [3], so genetic modifiers
+of APOL1 expression are a plausible explanation for who develops disease [4].
+Regulatory variation at this locus is under active investigation: cis-regulatory
+variants have been associated with circulating APOL1 concentration [5], and APOL1
+risk genotypes with methylation differences at enhancers and promoters across the
+APOL1-APOL4-MYH9 region [6]. Kidney expression resources have improved, including
+maps from 659 microdissected kidney samples [7], though ancestry representation
+and variant coverage remain limiting.
 
 Sequence-to-function models predict regulatory activity from DNA and are proposed
-for prioritising non-coding variants [7, 8]. Earlier models of this family perform
-less well in regions that distinguish cell types [9, 10], and a companion analysis
-found that kidney-labelled outputs predicted kidney expression effects no better
-than outputs labelled for other tissues, leaving open whether that reflected
-genuinely shared regulatory effects or limited use of tissue identity [11].
+for prioritising non-coding variants [8, 9]. Earlier models of this family capture
+promoter determinants while largely ignoring distal enhancers [10] and perform
+less well in regions that distinguish cell types, an evaluation that already
+stratified by cell-type specificity [11]. This study is a worked example of that
+principle applied to one model at one locus, not a discovery of it.
 
-We set out to prioritise regulatory candidates at this locus. That attempt largely
-failed, for reasons reported here. In the course of testing it, we found that the
-apparent answer to the tissue-specificity question depends on how the benchmark is
-built, and that is the finding we consider most useful.
+We set out to prioritise regulatory candidates. That attempt did not succeed. What
+it produced instead is a case study in how a single-locus benchmark can be
+misread, and we report our own errors because they were not obvious and each
+produced a clean result.
 
 ## 2. Materials and methods
 
-### 2.1 Locus, variants and selection
+### 2.1 Locus, variants and candidate selection
 
 The interval spanning APOL3 to MYH9, chr22:36,140,330-36,388,018 (GRCh38,
-247,688 bp), fits inside one model context window. All variants catalogued by
-gnomAD v4 were retrieved with African genetic-ancestry group alternate allele
-frequencies. We retained single-nucleotide substitutions with frequency at least
-1%, giving 1,930 variants of which 1,865 were non-coding. The approximately 99,000
-non-coding variants at the locus were therefore not all evaluated; frequency and
+247,688 bp), fits within one model context window. Variants catalogued by gnomAD
+v4 [12] were retrieved with alternate allele frequencies for the African
+genetic-ancestry group. We retained single-nucleotide substitutions with
+alternate allele frequency at least 1%. After removing duplicate identifiers this
+gave **1,921 unique variants**, of which 1,865 were non-coding. The approximately
+99,000 non-coding variants at the locus were not all evaluated: frequency and
 variant-type filtering, not model prioritisation, removed most of them.
+
+Candidates were the 15 highest-ranked non-coding variants by absolute predicted
+podocyte accessibility effect after the distance stratification in section 2.3,
+excluding variants within the APOL1 gene body. No annotation, peak overlap or
+prior literature informed selection. The full ranked list and the selection flow
+are deposited.
 
 ### 2.2 Model, version and provenance
 
-Predictions were generated through the AlphaGenome public API [8] using the
-ALL_FOLDS model version, which is the default when no version is specified.
-Two channels were used: a gene-masked RNA scorer restricted to the APOL1
-transcript, and position-local DNase and ATAC scorers. Kidney tracks were named
-explicitly rather than matched by substring.
+Predictions were generated through the AlphaGenome public API [9] using the
+ALL_FOLDS model version, the default when none is specified. Channels used were a
+gene-masked RNA scorer restricted to the APOL1 transcript and position-local DNase
+and ATAC scorers, all differential REF-versus-ALT scorers. Kidney tracks were
+named explicitly rather than matched by substring.
 
-**This is not independent validation, and we do not describe it as such.**
-AlphaGenome is trained on ENCODE DNase-seq and ATAC-seq coverage. Every kidney
-biosample used here corresponds to a named training experiment in the model's
-published track manifest (ENCSR206OJJ, ENCSR785BDQ, ENCSR000EPW, ENCSR000EOL,
-ENCSR000EOK, ENCSR175IWT, ENCSR297VGU). Moreover, the ALL_FOLDS model is trained
-on all eight genomic sections and has no held-out genomic regions; the developers
-state that such models lack a dedicated holdout and were not used for track
-prediction evaluations. Applying the published fold definitions, this locus lies
-in fold 6, which is in the training partition of every released checkpoint except
-one, where it is the validation partition. It is the test partition of none. We
-therefore describe the enrichment analyses as a consistency check between
-predictions and the experimental data underlying them.
+**This evaluation is not independent of model training.** AlphaGenome is trained
+on ENCODE DNase-seq and ATAC-seq coverage, and every kidney biosample used here
+corresponds to a named training experiment in the published track manifest
+(ENCSR206OJJ, ENCSR785BDQ, ENCSR000EPW, ENCSR000EOL, ENCSR000EOK, ENCSR175IWT,
+ENCSR297VGU). The ALL_FOLDS model is trained on all eight genomic sections and has
+no held-out genomic region. Applying the published fold definitions, this locus
+lies in data fold 6, which is in the training partition of the served checkpoint
+and the validation partition of one other; **no released checkpoint designates it
+as its test region**. We therefore describe these analyses as a consistency check
+between predictions and the experimental data underlying them. Whether ENCODE-based
+evaluation of this model is independent in general depends on checkpoint, region,
+experiments and endpoint; the statement here concerns this case.
 
 ### 2.3 Expression channel and its control
 
 The gene-masked scorer assigns larger predicted effects nearer the gene. We
-stratified by gene body, regressed log absolute effect on log distance and ranked
-on the residual. As a control we asked whether the coding risk variants remained
-extreme after correction. **This control is weaker than we first treated it as.**
+stratified by gene body, regressed log absolute effect on log distance to the
+nearer APOL1 gene-body boundary, and ranked on the residual. We asked whether the
+coding risk variants remained extreme after correction. **This is a weak control.**
 Coding variants are not expression-null: a coding change can alter splicing,
 transcript stability or abundance, so a high predicted expression effect for G1 or
-G2 is not by itself evidence of model failure. We report the raw and adjusted
-results as sensitivity analyses rather than as a pass-or-fail test.
+G2 is not by itself evidence of model failure. We report it as a positional
+confound of unknown size and use the position-local accessibility channel for the
+remaining analyses.
 
-### 2.4 Measured accessibility and the partition
+### 2.4 Measured accessibility, partitions and the reconciliation
 
-ENCODE DNase-seq peak files (GRCh38, released) were merged over the locus for
-kidney and podocyte, and separately for six comparison tissues: liver, lung, heart
-left ventricle, stomach, spleen and thyroid gland. Measured accessible regions were
-then partitioned into **kidney-specific** (open in kidney, closed in all comparison
-tissues), **shared** (open in kidney and at least one comparison tissue) and
-**other-tissue-specific**.
+ENCODE DNase-seq peak files (GRCh38, released) [13] were merged over the locus
+for kidney and podocyte biosamples to form **one kidney union**, and separately for
+six comparison tissues: liver, lung, heart left ventricle, stomach, spleen and
+thyroid gland. Kidney peaks were then labelled **kidney-restricted** (no peak
+detected in any comparison tissue) or **shared**. These labels are mutually
+exclusive and their union is the kidney set by construction; the script asserts
+that the base pairs and the variant memberships sum, because an earlier version of
+this work compared a pooled result built on one peak set against partitions built
+on another and the discrepancy was detectable only by that arithmetic.
 
-Enrichment of top-ranked variants was tested by Fisher exact test against the other
-common variants at the same locus, with conditional maximum-likelihood odds ratios
-and exact 95% intervals. We report all 2x2 counts. The same-locus background
-matches sequence composition and gene density only approximately, since these vary
-within the interval.
+"Kidney-restricted" means no peak was detected in the selected comparison panel,
+not that the region is closed. The comparison panel was chosen to span germ layers
+and to be well represented in ENCODE at this locus; it does not match the scored
+outputs one for one, and sensitivity to that choice is deposited.
 
-Variants inside one peak share the element and have highly correlated scores, so
-paired comparisons between rankings resample **peaks**, not variants, with 600
-replicates. The four ranking depths are nested sensitivity analyses, not
-independent replications; a depth of 200 is the primary analysis.
+Enrichment was tested by Fisher exact test against the other common variants at
+the same locus, with conditional maximum-likelihood odds ratios and exact 95%
+intervals. **All four contingency cells and the eligible denominator are reported
+for every endpoint** (Supplementary Table 1). Ranking depth 200 is the primary
+analysis; depths 25, 50 and 100 are nested sensitivity analyses, not independent
+replications.
+
+Variants within one peak share the element and have correlated scores, so
+comparisons between rankings resample **peaks** with replacement, with variants
+outside peaks carried unchanged, 500 replicates, percentile intervals, unadjusted
+for multiplicity across six comparisons. The change in contrast between the pooled
+and kidney-restricted endpoints was estimated on the same resampled draws, so the
+two contrasts are paired.
 
 ### 2.5 Linkage disequilibrium with G1 and G2
 
-Earlier analysis reported that G2 was untestable. That was incorrect. The six-base
-deletion is absent from the biallelic GRCh38 lift we first used, but present in the
+An earlier version reported G2 as untestable. That was incorrect. The six-base
+deletion is absent from the biallelic GRCh38 lift first used but present in the
 original 1000 Genomes phase 3 release at chr22:36,662,041 (GRCh37) as AATAATT>A,
-carrying no identifier, which is why identifier-based searches failed [12]. Its
-frequency confirms identity: 19.5% in Gambian, 18.2% in Mende, 0% in European and
-East Asian panels.
+carrying no identifier, which is why identifier-based searches failed [14, 15].
+Identification rests on normalised position and alleles; frequency is
+corroboration only (19.5% Gambian, 18.2% Mende, 0% in European and East Asian
+panels).
 
-We computed r-squared with G1 and G2 separately, in seven African populations
-analysed individually, from phased haplotypes. **We also report D' and the maximum
-r-squared attainable given the two allele frequencies**, because low r-squared
-between variants of different frequency does not establish haplotypic independence:
-at frequencies of 0.026 and 0.20, r-squared cannot exceed about 0.107 even under
-complete nesting.
+We computed r-squared with G1a, G1b and G2 separately, in seven African
+populations analysed individually, and report the maximum across populations with
+the responsible population and partner identified. **D' and the maximum r-squared
+attainable at the observed allele frequencies are reported alongside**, because
+low r-squared between variants of different frequency does not establish
+haplotypic independence. Neither does low D' establish it; both are filtering
+thresholds, and candidates passing them are described as below those thresholds
+rather than as independent.
 
 ### 2.6 Control locus and prior-record search
 
 The pipeline was repeated at the beta-globin cluster, chr11:5,150,000-5,397,688,
 matched on length, paralogue-cluster structure and, by frequency-stratified
 subsampling, variant count. Candidates were searched against Europe PMC full text,
-the GWAS Catalog [13] and GTEx v8 [14]; a positive control confirmed that full-text
-search reaches variants of this class.
+the GWAS Catalog [16] and GTEx v8 [17] on 19 September 2026; a positive control
+confirmed retrieval of a known variant at this locus. "No prior record identified"
+describes a bounded search, not proof of novelty.
 
 ### 2.7 Data and code
 
-Analysis code, the frozen variant set, all per-variant predictions, raw overlap
-counts and the selection flow are deposited (below). This study used publicly
-available, de-identified genotype and haplotype data from 1000 Genomes and gnomAD,
-and no new individual-level data were generated or accessed.
+Analysis code, the frozen variant ledger, per-variant predictions, all contingency
+counts, peak accessions, partition labels and the candidate selection flow are
+deposited. No new participant data were collected; existing publicly available
+1000 Genomes phased haplotypes and gnomAD summary frequencies were analysed.
 
 ## 3. Results
 
@@ -223,158 +245,154 @@ and no new individual-level data were generated or accessed.
 
 Variants inside the APOL1 gene body scored roughly three times higher than those
 outside (median absolute effect 0.0022, n = 134, against 0.00077, n = 1,796), and
-distance alone explained 5.7% of the variance in log absolute effect. Within the
-gene body the 13 coding variants scored higher still (0.0062). After residualising
-on distance the coding risk variants remained in the upper tail, at the 88th to
-98th percentile.
+distance explained 5.7% of the variance in log absolute effect. Within the gene
+body the 13 coding variants scored higher still (0.0062, against 0.0020 for the
+121 non-coding intragenic variants). After residualising, the three coding
+sentinel variants remained at the 88th to 98th percentile.
 
-We do not read this as demonstrating that the channel is unusable. Coding variants
-can genuinely affect expression, and 5.7% of variance is a modest positional
-component. We report it as a confound of unknown size and use the position-local
-accessibility channel for the remaining analyses, which do not carry it: distance
-explained 0.3% of variance for podocyte DNase and none for kidney ATAC.
+We do not read this as showing the channel is unusable, for the reason given in
+section 2.3. We report it as a positional confound and use the accessibility
+channel thereafter, where distance explained 0.3% of variance for podocyte DNase
+and none for kidney ATAC.
 
-### 3.2 Pooled, the ranking appears tissue-blind
+### 3.2 The reconciled comparison
 
-Measured kidney peaks covered 30,358 bp, 12.3% of the locus. Ranking by predicted
-podocyte accessibility, 69 of the top 200 variants (34.5%) fell inside them
-against 7.9% of the remainder: odds ratio 6.13.
+The kidney union comprised 110 peaks over 44,576 bp, of which 39 peaks
+(14,686 bp) were kidney-restricted and 71 (29,890 bp) shared. Of 1,921 variants,
+277 fell in the union, 84 restricted and 193 shared; the partitions sum to the
+parent in both peaks and variants.
 
-Repeating this with eight deliberately non-renal tissue outputs gave closely
-similar results (Table 1). A hepatocyte ranking reached 6.69 at a depth of 100
-against 5.23 for podocyte. On this endpoint the tissue label appears to carry
-little information.
+At the primary depth of 200, from that single frozen object (Table 1, Figure 2):
 
-### 3.3 Partitioned, the same data show clear tissue discrimination
+The podocyte ranking led in all three views, with odds ratios of 8.94 pooled, 4.28
+kidney-restricted and 8.13 shared. The strongest non-renal ranking, lung, gave
+5.58, 2.48 and 5.98. The whole-kidney ranking performed worst of the renal outputs
+throughout, at 1.99, 0.90 and 2.46.
 
-Measured accessible regions divided into 39 kidney-specific peaks (14,686 bp), 71
-shared (29,890 bp) and 47 other-tissue-specific (16,354 bp). Shared regions are
-the largest partition.
+**Partitioning did not change the tissue contrast.** The difference between the
+podocyte-minus-comparator contrast in kidney-restricted regions and the same
+contrast pooled ranged from -0.10 to +0.40 in log odds ratio and excluded zero for
+none of six comparators (Figure 3). Shared regions account for two-thirds of the
+kidney union, and about 12% of the locus by length.
 
-In **kidney-specific** regions the podocyte ranking reached an odds ratio of 4.28
-(2.52-7.11), against 2.48 (1.35-4.34) for the best non-kidney ranking (Table 2,
-Figure 2). Paired comparison on the same variants, resampling peaks, gave
-differences in log odds ratio excluding zero against five of six alternatives:
-liver +1.66 (0.75-2.51), whole kidney +1.58 (0.91-2.34), stomach +1.04
-(0.41-1.66), hepatocyte +0.84 (0.53-1.15) and brain +0.79 (0.17-1.39). Only lung
-was not significantly exceeded, +0.54 (-0.17 to +1.14).
+### 3.3 Two earlier conclusions were artefacts of the same error
 
-The mirror control agrees. In **other-tissue-specific** regions the podocyte
-ranking was the weakest of all seven (1.51, 0.73-2.86) while stomach, hepatocyte
-and lung led (3.42, 3.19, 2.97).
+We report these because each looked clean and neither was detectable without
+checking that the sets matched.
 
-In **shared** regions every ranking was strongly enriched and the differences
-narrowed: podocyte 8.14, lung 5.98, hepatocyte 5.80.
+First, ranking by predicted **podocyte** accessibility and evaluating against
+**whole-kidney** peaks alone, several non-renal rankings matched or exceeded the
+podocyte ranking at intermediate depths, suggesting the tissue label carried
+little information. That comparison evaluates a cell-type prediction against a
+tissue-level measurement.
 
-Because shared regions dominate the locus, an endpoint that pools all measured
-kidney peaks is largely measuring shared accessibility. That is why the pooled
-analysis in section 3.2 suggested the tissue label was uninformative when the
-partitioned analysis shows it is not.
+Second, when the measured set was extended to include podocyte peaks for the
+partitioned analysis but not for the pooled one, the partitioned result appeared
+to reverse the pooled result. The two were different parent sets. The discrepancy
+was visible only in the arithmetic: the partitions summed to 44,576 bp against
+30,358 bp for the supposed whole.
 
-### 3.4 Candidate prioritisation does not survive scrutiny
+Both errors reduce to mismatching the measured evaluation set to the predicted
+track. Neither produced an implausible number.
 
-Fifteen candidates were taken forward from the accessibility ranking. Testing
-against G1 and G2 directly, the maximum r-squared against any risk variant was
-0.177, which taken alone suggests independence. It does not. Of 45 comparisons, 22
-combine D' at or near 1.0 with r-squared below 0.2, and several sit at 96-100% of
-the maximum their allele frequencies permit, indicating complete haplotypic nesting
-on the risk background. Requiring D' below 0.8 against all three risk variants
-leaves four candidates: rs4820232, rs6000250, rs132708 and rs713797 (Table 3).
+### 3.4 Candidate prioritisation yields no novel independent modifier
 
-Three of those four already have published regulatory records, and none points at
-APOL1. rs132708 is a GTEx eQTL for APOL4; rs713797 is a catalogued plasma protein
-quantitative trait locus and an eQTL for FOXRED2; rs4820232 is correlated with
-rs5750250 (r-squared 0.55, D' 1.0), among the strongest associations in the MYH9
-intron 13-15 region identified by dense mapping [15]. An eQTL association does not
-establish that the indexed variant is causal, and an association with APOL4 or
-FOXRED2 does not exclude an additional effect on APOL1.
+Of 45 candidate-by-risk-variant comparisons, the maximum r-squared against any
+risk variant was 0.177, which alone suggests independence. Twenty-two of the 45
+combine D' at or near 1.0 with r-squared below 0.2, several at 96-100% of the
+maximum their allele frequencies permit, consistent with nesting on the risk
+background. Applying a threshold of D' below 0.8 against all three risk variants
+leaves four candidates (Table 2).
 
-One candidate, rs6000250, is both haplotypically independent of the risk variants
-and without prior record. We regard that as an illustration of what the workflow
-yields rather than as a finding, and no functional evidence supports it.
+Of those four, rs132708 is a reported GTEx eQTL for APOL4 and rs713797 for
+FOXRED2, with three plasma protein associations catalogued; the specific records
+are deposited. rs4820232 is correlated with rs5750250 (r-squared 0.55, D' 1.0),
+one of several strongly associated variants in the MYH9 intron 13-15 region
+identified by dense mapping [18]; that is a historical regional association, not a
+demonstrated regulatory effect or an assigned target gene. rs6000250 falls below
+both filtering thresholds and no prior record was identified.
 
-### 3.5 The control locus excludes nothing
+An eQTL association does not establish that the indexed variant is causal, and an
+association with APOL4 or FOXRED2 does not exclude an additional effect on APOL1.
+A variant carried on a risk haplotype could still modify penetrance among
+carriers. The defensible statement is therefore narrow: **this analysis does not
+establish a novel, independent APOL1 modifier.**
+
+Most candidates lie within MYH9. The explanation is mundane: the ranking channel
+is position-local and gene-agnostic, MYH9 occupies much of the interval, and
+accessible chromatin is denser there. It does mean "APOL1 locus" misdescribes what
+was prioritised.
+
+### 3.5 The control locus is too imprecise to exclude enrichment
 
 At the beta-globin cluster, 2 of the top 200 variants fell in measured kidney
-chromatin against 12 of 1,718: odds ratio 1.44, one-sided p = 0.44, exact 95% CI
-0.155-6.520. No significant enrichment was detected. **That interval includes the
-test-locus estimate of 6.13, as does the interval at every other depth**, so this
-control does not exclude an effect of the size observed at APOL1-MYH9. It is an
-absence of evidence and we report it as such. The control locus also carries much
-less kidney chromatin (1.0% of its length against 12.3%), so a single interval of
-this width cannot establish that the pipeline never produces spurious enrichment.
+chromatin against 12 of 1,718: conditional odds ratio 1.44, one-sided p = 0.44,
+exact 95% CI 0.155-6.520. No significant enrichment was detected, and the interval
+includes the test-locus estimate at this and every other depth. **The control
+estimate is too imprecise to exclude enrichment of the observed magnitude.** The
+control locus also carries far less kidney chromatin, 1.0% of its length against
+12.3%.
 
 ## 4. Discussion
 
-The useful result here is about benchmark construction rather than about this
-model. Pooling every measured kidney peak, a hepatocyte ranking recovered them
-almost as well as a kidney ranking, and we initially concluded that the tissue
-label was close to decorative. Separating regions that are open only in kidney
-from those open in many tissues reverses that conclusion: the podocyte ranking
-leads clearly where tissue identity is the whole signal, and is the weakest of
-seven where it should be. Shared regions dominate, so they dominated the pooled
-endpoint and hid a discrimination that was plainly present.
+The substantive finding of this study is about its own conduct. We reached two
+opposite conclusions about whether a tissue-labelled ranking carries tissue
+information, and both were artefacts of evaluating a prediction against a measured
+set that did not match it. The first evaluated a podocyte prediction against
+whole-kidney measurement. The second compared analyses built on two different peak
+sets. Each produced a coherent result with a plausible mechanism, and neither was
+visible except by checking that the sets summed.
 
-The general point is that a benchmark which does not separate tissue-specific from
-shared regulatory regions will understate tissue discrimination, possibly to the
-point of concluding that a model has none. We made that error before correcting it,
-and it is an easy one to make because the pooled analysis looks reasonable and
-returns a clean answer. This also bears on our companion analysis, which left open
-whether similar cross-tissue performance reflected genuinely shared effects or
-limited use of tissue identity [11]. The evidence here favours the former.
+When the analysis is reconciled onto one frozen variant set and one measured
+kidney union, the picture is simpler than either earlier account. The
+podocyte-labelled ranking is enriched in measured kidney accessible regions in
+every view, most strongly in shared regions and still clearly in kidney-restricted
+ones, and partitioning does not measurably change its advantage over non-renal
+rankings. We had predicted that partitioning would matter and it did not.
 
-Two limitations bound everything above, and neither is incidental.
+Three limitations bound what this can mean, and the first is decisive.
 
-First, none of this is independent validation. AlphaGenome is trained on ENCODE
-accessibility data; every kidney track used here is a named training experiment;
-and the locus sits in a training fold of the served model. What we demonstrate is
-that predictions are consistent with the data underlying them, in a way that
-discriminates tissue. A genuine test of generalisation would require a held-out
-locus and a checkpoint that excludes it, and no released checkpoint holds this
-locus out. We report model version, fold assignment and track accessions so that
-the limitation is auditable rather than implicit.
+The evaluation is not independent of training. Every kidney track used is a named
+training experiment and the locus lies in a training fold of the served
+checkpoint. What is demonstrated is that predictions are consistent with the data
+underlying them, in a way that discriminates tissue. A test of generalisation
+requires a held-out region and a checkpoint that excludes it, and none of the
+released checkpoints designates this region as its test partition. A
+validation-fold sensitivity analysis would be a weaker but distinguishable
+alternative and is not attempted here.
 
-Second, the candidate list does not survive. Our first linkage analysis used
-r-squared alone and called seven candidates independent of the risk haplotypes.
-Reporting D' and the maximum r-squared the allele frequencies permit shows that
-most of those were completely nested on the risk background, and that low
-r-squared reflected a frequency difference. Four survive, three of those are
-already described with non-APOL1 targets, and one remains. We therefore make no
-claim to have identified regulatory modifiers of APOL1.
+The endpoint is positional. A differential REF-versus-ALT score ranked against
+peak membership tests whether predictions concentrate at accessible positions. It
+does not test which allele changes accessibility, nor the direction or magnitude
+of any effect, and we have not compared it against a simple reference-accessibility
+ranking to establish what the differential scorer adds.
 
-The awkward observation deserves stating plainly rather than as a footnote. Most
-candidates lie within MYH9, the gene to which this association was first mapped
-[2] and from which it was moved in 2010 [1]. We are not reopening that question,
-and nothing here indicates that MYH9 rather than APOL1 explains the disease
-association. The explanation is mundane: the ranking channel is position-local and
-gene-agnostic, MYH9 occupies much of the interval, and accessible chromatin is
-denser there. It does mean that "APOL1 locus" is the wrong description of what was
-prioritised.
+The candidate list does not support a biological claim. Most candidates were
+nested on the risk background once D' was examined, three of the four survivors
+have published associations pointing elsewhere, and none has functional evidence.
 
-What this study does not establish should be equally explicit. No candidate is
-shown to alter expression of any gene. No target gene is assigned. No
-tissue-specific activity is demonstrated for any individual variant, as distinct
-from the ranking as a whole. No association with kidney disease is tested, and
+For investigators applying these models at kidney loci, three practical points
+follow. Match the measured evaluation set to the predicted track, at the same
+level of cell-type resolution. Verify that partitions sum to their parent set
+before interpreting any difference between them; that single check would have
+caught both of our errors immediately. And report the model version and the fold
+containing the locus, because the default served checkpoint holds nothing out.
+
+What this study does not establish should be explicit. No candidate is shown to
+alter expression of any gene. No target gene is assigned. No allele-specific
+activity is demonstrated. No association with kidney disease is tested, and
 nothing here bears on prognosis, on which carriers develop disease, or on
 treatment.
 
-For investigators applying these models at kidney loci we would suggest three
-things. Partition measured regulatory regions by tissue restriction before drawing
-conclusions about tissue specificity. Report the model version and the fold
-containing the locus, because the default served model holds nothing out. And test
-linkage with D' and the attainable maximum, not r-squared alone, because allele
-frequency differences will otherwise manufacture apparent independence.
-
 ## Data availability
 
-Analysis code, the frozen variant set, per-variant predictions, all raw overlap
-counts, the candidate selection flow and the fold assignment of the locus are
-available at https://github.com/PatientThread/apol1-alphagenome and will be
-deposited with a persistent identifier on publication. Variant frequencies are from
-gnomAD v4; peak calls from the ENCODE portal [16] with accessions listed;
-haplotypes from 1000 Genomes phase 3 [17]. Model predictions were obtained under
-AlphaGenome's non-commercial research terms and are redistributed subject to them;
-model weights were not accessed.
+Analysis code, the frozen variant ledger, per-variant predictions, all contingency
+counts, ENCODE file accessions, partition labels, the candidate selection flow and
+the interval-to-fold mapping are available at
+https://github.com/PatientThread/apol1-alphagenome, with a tagged release for
+review and a persistent identifier on publication. Model predictions were obtained
+under AlphaGenome's non-commercial research terms and are redistributed subject to
+them; model weights were not accessed.
 
 ## Acknowledgements
 
@@ -396,99 +414,90 @@ None declared.
 
 ## Ethical approval
 
-Ethical approval was not required. This study analysed publicly available,
-de-identified, summary-level and genotype data from open consortia. No new
-individual-level data were generated or accessed and no participants were
-recruited.
+Ethical approval was not required. No new participant data were collected. The
+study analysed existing publicly available 1000 Genomes phased haplotypes and
+gnomAD summary frequencies, together with ENCODE consortium data and model
+predictions.
 
 ## References
 
 1. Genovese G, Friedman DJ, Ross MD, et al. Association of trypanolytic ApoL1 variants with kidney disease in African Americans. Science 2010; 329: 841-845
 2. Kopp JB, Smith MW, Nelson GW, et al. MYH9 is a major-effect risk gene for focal segmental glomerulosclerosis. Nat Genet 2008; 40: 1175-1184
-3. Ojo AO, Adu D, Bramham K, et al. APOL1 kidney disease: conclusions from a Kidney Disease: Improving Global Outcomes (KDIGO) Controversies Conference. Kidney Int 2025; 108: 763-779
-4. Adamson WE, Noyes H, Ogunsola J, Parekh RS, Cooper A, MacLeod A. Coding, modifier, and regulatory effects shape circulating APOL1 levels. Hum Mol Genet 2026; 35: ddag087
-5. Li Y, Bozack AK, Schlosser P, et al. APOL1 risk genotypes influence DNA methylation across multiple genomic elements in APOL1-APOL4-MYH9 region in African Americans. Clin Epigenetics 2026; 18: 147
-6. Sheng X, Guan Y, Ma Z, et al. Mapping the genetic architecture of human traits to cell types in the kidney identifies mechanisms of disease and potential treatments. Nat Genet 2021; 53: 1322-1333
-7. Linder J, Srivastava D, Yuan H, et al. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. Nat Genet 2025; 57: 949-961
-8. Avsec Ž, Latysheva N, Cheng J, et al. Advancing regulatory variant effect prediction with AlphaGenome. Nature 2026; 649: 1206-1218
-9. Karollus A, Mauermeier T, Gagneur J. Current sequence-based models capture gene expression determinants in promoters but mostly ignore distal enhancers. Genome Biol 2023; 24: 56
-10. Kathail P, Shuai RW, Chung R, et al. Current genomic deep learning models display decreased performance in cell type-specific accessible regions. Genome Biol 2024; 25: 202
-11. Lawrence C. Kidney representation and uncertainty in AlphaGenome regulatory variant prediction. Submitted manuscript, available from the author
-12. Zhang Z, Hao K, Ross MJ, Murphy B, Menon MC. APOL1 G2 risk allele-clarifying nomenclature. Kidney Int 2017; 92: 518-519
-13. Sollis E, Mosaku A, Abid A, et al. The NHGRI-EBI GWAS Catalog: knowledgebase and deposition resource. Nucleic Acids Res 2023; 51: D977-D985
-14. GTEx Consortium. The GTEx Consortium atlas of genetic regulatory effects across human tissues. Science 2020; 369: 1318-1330
-15. Nelson GW, Freedman BI, Bowden DW, et al. Dense mapping of MYH9 localizes the strongest kidney disease associations to the region of introns 13 to 15. Hum Mol Genet 2010; 19: 1805-1815
-16. ENCODE Project Consortium. Expanded encyclopaedias of DNA elements in the human and mouse genomes. Nature 2020; 583: 699-710
-17. 1000 Genomes Project Consortium. A global reference for human genetic variation. Nature 2015; 526: 68-74
+3. Beckerman P, Bi-Karchin J, Park AS, et al. Transgenic expression of human APOL1 risk variants in podocytes induces kidney disease in mice. Nat Med 2017; 23: 429-438
+4. Ojo AO, Adu D, Bramham K, et al. APOL1 kidney disease: conclusions from a Kidney Disease: Improving Global Outcomes (KDIGO) Controversies Conference. Kidney Int 2025; 108: 763-779
+5. Adamson WE, Noyes H, Ogunsola J, Parekh RS, Cooper A, MacLeod A. Coding, modifier, and regulatory effects shape circulating APOL1 levels. Hum Mol Genet 2026; 35: ddag087
+6. Li Y, Bozack AK, Schlosser P, et al. APOL1 risk genotypes influence DNA methylation across multiple genomic elements in APOL1-APOL4-MYH9 region in African Americans. Clin Epigenetics 2026; 18: 147
+7. Sheng X, Guan Y, Ma Z, et al. Mapping the genetic architecture of human traits to cell types in the kidney identifies mechanisms of disease and potential treatments. Nat Genet 2021; 53: 1322-1333
+8. Linder J, Srivastava D, Yuan H, et al. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. Nat Genet 2025; 57: 949-961
+9. Avsec Ž, Latysheva N, Cheng J, et al. Advancing regulatory variant effect prediction with AlphaGenome. Nature 2026; 649: 1206-1218
+10. Karollus A, Mauermeier T, Gagneur J. Current sequence-based models capture gene expression determinants in promoters but mostly ignore distal enhancers. Genome Biol 2023; 24: 56
+11. Kathail P, Shuai RW, Chung R, Ye CJ, Loeb GB, Ioannidis NM. Current genomic deep learning models display decreased performance in cell type-specific accessible regions. Genome Biol 2024; 25: 202
+12. Chen S, Francioli LC, Goodrich JK, et al. A genomic mutational constraint map using variation in 76,156 human genomes. Nature 2024; 625: 92-100
+13. ENCODE Project Consortium. Expanded encyclopaedias of DNA elements in the human and mouse genomes. Nature 2020; 583: 699-710
+14. Zhang Z, Hao K, Ross MJ, Murphy B, Menon MC. APOL1 G2 risk allele-clarifying nomenclature. Kidney Int 2017; 92: 518-519
+15. 1000 Genomes Project Consortium. A global reference for human genetic variation. Nature 2015; 526: 68-74
+16. Sollis E, Mosaku A, Abid A, et al. The NHGRI-EBI GWAS Catalog: knowledgebase and deposition resource. Nucleic Acids Res 2023; 51: D977-D985
+17. GTEx Consortium. The GTEx Consortium atlas of genetic regulatory effects across human tissues. Science 2020; 369: 1318-1330
+18. Nelson GW, Freedman BI, Bowden DW, et al. Dense mapping of MYH9 localizes the strongest kidney disease associations to the region of introns 13 to 15. Hum Mol Genet 2010; 19: 1805-1815
 
 ## Figure legends
 
-**Figure 1.** Enrichment of top-ranked variants in measured accessible regions, by
-the tissue output used to rank and by partition. Points are conditional odds
-ratios with exact 95% intervals; the background is the other common variants at
-the same locus. Kidney rankings are shown in black. The podocyte ranking leads in
-the kidney-specific partition and is the weakest in the other-tissue-specific
-partition, while rankings differ much less in the shared partition.
+**Figure 1.** Locus map. APOL1, APOL4 and MYH9 with transcription orientation, the
+positions of G1 and G2, the four candidates passing linkage filtering, and
+measured accessible regions drawn on separate rows for kidney-restricted and
+shared, with the comparison-tissue union below.
 
-**Figure 2.** Paired differences in log odds ratio between the podocyte ranking
-and each alternative, within the kidney-specific partition, with peaks resampled
-rather than variants. Intervals exclude zero for five of six comparisons.
+**Figure 2.** Enrichment of the top 200 variants in measured accessible regions,
+by the tissue output used to rank, for the pooled kidney union and each partition.
+Conditional odds ratios with exact 95% intervals against the other common variants
+at the same locus; eligible n = 1,921. Intervals assume variant-level
+independence and are therefore narrower than the peak-resampled contrasts in
+Figure 3. Kidney rankings are shown in black.
 
-**Figure 3.** The expression channel. Predicted absolute effect on APOL1
-expression by position, with the group median marked, and the distribution of the
-residual after regressing log effect on log distance with the three coding risk
-variants marked.
+**Figure 3.** Change in tissue contrast on partitioning. For each comparator, the
+podocyte-minus-comparator contrast in kidney-restricted regions minus the same
+contrast pooled, in natural-log odds ratio, estimated on identical resampled draws
+of peaks. Points are observed values; intervals are percentile bootstrap, 500
+replicates, unadjusted for six comparisons. No interval excludes zero.
 
 **Figure 4.** The control locus. Conditional odds ratios with exact 95% intervals
-at the beta-globin cluster against the test locus, same pipeline and peak source.
-The control intervals include the test-locus estimate at every depth.
+at the beta-globin cluster against the test-locus estimate, same pipeline and peak
+source. Zero-event groups are labelled rather than plotted as finite estimates.
 
 ## Tables
 
-**Table 1.** Enrichment in all measured kidney open chromatin, pooled, by the
-tissue output used to rank the same 1,930 variants. Conditional odds ratios at
-four nested ranking depths; depth 200 is the primary analysis and the others are
-sensitivity analyses. Raw counts are deposited.
+**Table 1.** Enrichment at the primary ranking depth of 200, by tissue output and
+endpoint, from one frozen variant set (n = 1,921) and one measured kidney union.
+Conditional odds ratios; all contingency cells are in Supplementary Table 1.
+Kidney-restricted and shared sum to the pooled kidney union: 39 + 71 = 110 peaks,
+14,686 + 29,890 = 44,576 bp, 84 + 193 = 277 variants.
 
-| Ranked by | Top 25 | Top 50 | Top 100 | Top 200 |
-|---|---|---|---|---|
-| Podocyte (kidney) | 4.88 | 4.19 | 5.23 | 6.14 |
-| Kidney (whole) | 4.06 | 3.79 | 3.04 | 2.27 |
-| Hepatocyte | 4.88 | 5.07 | 6.69 | 4.81 |
-| Lung | 4.06 | 4.19 | 5.23 | 5.44 |
-| Frontal cortex | 4.88 | 4.19 | 4.25 | 3.85 |
-| Brain | 3.33 | 2.75 | 4.48 | 4.37 |
-| Stomach | 4.06 | 3.42 | 4.48 | 4.24 |
-| Heart, left ventricle | 3.33 | 3.79 | 3.82 | 3.15 |
-| Liver | 4.06 | 2.75 | 3.22 | 2.36 |
-| Lung (left) | 1.61 | 2.44 | 2.37 | 1.49 |
-
-**Table 2.** Enrichment by partition, top 200 by each tissue output. Conditional
-odds ratios with exact 95% intervals, and the number of the top 200 falling in the
-partition. Partition sizes: kidney-specific 39 peaks, shared 71,
-other-tissue-specific 47.
-
-| Ranked by | Kidney-specific | Shared | Other-tissue-specific |
+| Ranked by | Pooled kidney | Kidney-restricted | Shared |
 |---|---|---|---|
-| Podocyte (kidney) | **4.28 (2.52-7.11)**, n=26 | 8.14 (5.69-11.61), n=75 | 1.51 (0.73-2.86), n=12 |
-| Lung | 2.48 (1.35-4.34), n=18 | 5.98 (4.16-8.57), n=65 | 2.97 (1.66-5.12), n=20 |
-| Hepatocyte | 1.94 (1.01-3.51), n=15 | 5.80 (4.03-8.31), n=64 | 3.19 (1.80-5.46), n=21 |
-| Brain | 1.94 (1.01-3.51), n=15 | 4.07 (2.78-5.89), n=53 | 2.37 (1.27-4.19), n=17 |
-| Stomach | 1.46 (0.71-2.78), n=12 | 5.80 (4.03-8.31), n=64 | **3.42 (1.95-5.82)**, n=22 |
-| Kidney (whole) | 0.90 (0.37-1.91), n=8 | 2.46 (1.63-3.67), n=39 | 2.37 (1.27-4.19), n=17 |
-| Liver | 0.90 (0.37-1.91), n=8 | 2.66 (1.77-3.94), n=41 | 2.37 (1.27-4.19), n=17 |
+| Podocyte (kidney) | 8.94 | 4.28 | 8.13 |
+| Lung | 5.58 | 2.48 | 5.98 |
+| Hepatocyte | 5.02 | 1.94 | 5.80 |
+| Stomach | 4.63 | 1.46 | 5.80 |
+| Brain | 3.72 | 1.94 | 4.07 |
+| Liver | 2.12 | 0.90 | 2.66 |
+| Kidney (whole) | 1.99 | 0.90 | 2.46 |
 
-**Table 3.** The four candidates surviving linkage filtering, with prior published
-record. Alternate allele frequency is in the African genetic-ancestry group of
-gnomAD v4. r-squared and D' are the maximum against G1a, G1b or G2 across seven
-African populations analysed separately.
+**Table 2.** The four candidates passing linkage filtering. Alternate allele
+frequency is for the African genetic-ancestry group of gnomAD v4. r-squared and D'
+are maxima against G1a, G1b or G2 across seven African populations analysed
+separately; maxima for the two measures may arise from different comparisons and
+the responsible population and partner for each are deposited.
 
-| Variant | Alt AF | max r² | max D' | Nearest gene | Prior published record |
+| Variant | Alt AF | max r² | max D' | Nearest gene | Prior record identified |
 |---|---|---|---|---|---|
-| rs713797 | 0.396 | 0.070 | 0.38 | MYH9 | FOXRED2 eQTL; three plasma protein associations |
-| rs132708 | 0.839 | 0.062 | 0.66 | APOL4 | APOL4 eQTL across multiple tissues |
-| rs6000250 | 0.111 | 0.177 | 0.69 | MYH9 | none identified |
-| rs4820232 | 0.301 | 0.106 | 0.79 | MYH9 | correlated with rs5750250 (r² 0.55, D' 1.0) |
+| rs713797 | 0.396 | 0.070 | 0.38 | MYH9 | reported FOXRED2 eQTL; three plasma protein associations |
+| rs132708 | 0.839 | 0.062 | 0.66 | APOL4 | reported APOL4 eQTL, multiple tissues |
+| rs6000250 | 0.111 | 0.177 | 0.69 | MYH9 | none identified by the searches described |
+| rs4820232 | 0.301 | 0.106 | 0.79 | MYH9 | correlated with rs5750250, a historical regional association marker |
 
-Eleven further candidates were excluded: D' at or near 1.0 with G1 or G2 despite
-low r-squared, indicating haplotypic nesting rather than independence.
+Eleven further candidates were excluded on D' at or near 1.0 with G1 or G2 despite
+low r-squared, consistent with haplotypic nesting rather than independence.
+
+**Supplementary Table 1.** All contingency counts for every endpoint, ranking and
+depth: top-set hits and misses, background hits and misses, and the eligible
+denominator. Deposited as `results/reconciled_counts.csv`.
