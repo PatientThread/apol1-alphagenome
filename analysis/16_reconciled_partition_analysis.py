@@ -195,9 +195,17 @@ def main() -> None:
                    sorted(glob.glob(str(RESULTS / "scored_wrong_tissue" / "*.tsv.gz")))],
                   ignore_index=True)
     before = len(d)
-    d = d.drop_duplicates("rsid").reset_index(drop=True)
-    print(f"\nFROZEN VARIANT UNIVERSE: {len(d)} unique rsIDs "
-          f"({before - len(d)} duplicate rows removed)")
+    # Deduplicate on the ALLELE, not the identifier. Nine rsIDs appear twice at
+    # the same position with different African allele frequencies: these are
+    # multi-allelic sites where one identifier covers two alternate alleles, and
+    # they are distinct variants. An earlier version deduplicated on rsID and
+    # silently discarded nine real variants. The scored file carries no ref/alt
+    # column, so (position, allele frequency) serves as the allele key here; the
+    # full ledger with ref and alt is deposited.
+    d = d.drop_duplicates(["pos", "af_afr"]).reset_index(drop=True)
+    print(f"\nFROZEN VARIANT UNIVERSE: {len(d)} distinct variants "
+          f"at {d['pos'].nunique()} positions "
+          f"({before - len(d)} exact duplicate rows removed)")
 
     d["in_kidney"] = d["pos"].map(lambda p: which(int(p), kidney) is not None)
     d["in_kspec"] = d["pos"].map(lambda p: which(int(p), k_spec) is not None)

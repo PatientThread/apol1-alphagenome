@@ -1,0 +1,87 @@
+{
+  "dedup": {
+    "raw_rows": 1948,
+    "unique_rsid": 1921,
+    "unique_pos_ref_alt": 1930,
+    "rows_sharing_rsid": 36
+  },
+  "expression": {
+    "n": 1930,
+    "in_gene_n": 134,
+    "in_gene_median": 0.0022376477718353003,
+    "in_gene_coding_n": 13,
+    "in_gene_coding_median": 0.0061802268028259,
+    "in_gene_noncoding_median": 0.0019943714141845,
+    "outside_n": 1796,
+    "outside_median": 0.00077020376920695,
+    "variance_explained_pct": 5.7
+  },
+  "control": {
+    "peaks": 18,
+    "bp": 5851,
+    "accessions": [
+      "ENCFF473YKR",
+      "ENCFF554CKH",
+      "ENCFF350FBW",
+      "ENCFF214HJG",
+      "ENCFF618RWK",
+      "ENCFF325DZQ",
+      "ENCFF019PKU",
+      "ENCFF971ABV"
+    ],
+    "eligible_n": 1929,
+    "rows": [
+      {
+        "depth": 25,
+        "a_top_in": 6,
+        "b_top_out": 19,
+        "c_bg_in": 32,
+        "d_bg_out": 1872,
+        "eligible_n": 1929,
+        "odds_ratio": 18.359,
+        "ci_low": 5.624,
+        "ci_high": 52.059,
+        "p_one_sided": 0.0
+      },
+      {
+        "depth": 50,
+        "a_top_in": 9,
+        "b_top_out": 41,
+        "c_bg_in": 29,
+        "d_bg_out": 1850,
+        "eligible_n": 1929,
+        "odds_ratio": 13.939,
+        "ci_low": 5.451,
+        "ci_high": 32.732,
+        "p_one_sided": 0.0
+      },
+      {
+        "depth": 100,
+        "a_top_in": 11,
+        "b_top_out": 89,
+        "c_bg_in": 27,
+        "d_bg_out": 1802,
+        "eligible_n": 1929,
+        "odds_ratio": 8.227,
+        "ci_low": 3.564,
+        "ci_high": 17.809,
+        "p_one_sided": 0.0
+      },
+      {
+        "depth": 200,
+        "a_top_in": 17,
+        "b_top_out": 183,
+        "c_bg_in": 21,
+        "d_bg_out": 1708,
+        "eligible_n": 1929,
+        "odds_ratio": 7.54,
+        "ci_low": 3.664,
+        "ci_high": 15.313,
+        "p_one_sided": 0.0
+      }
+    ],
+    "test_locus_bp": 44576,
+    "test_locus_pct": 18.0,
+    "control_pct": 2.4
+  }
+}
