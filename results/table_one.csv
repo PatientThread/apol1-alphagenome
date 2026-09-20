@@ -1,0 +1,7 @@
+reference_set,locus,peaks,bp,pct_of_locus,best_nonrenal,a_top_in,b_top_out,c_bg_in,d_bg_out,eligible_n,odds_ratio,ci_low,ci_high,p_one_sided
+whole kidney only,APOL1-MYH9,67,30358,12.3,5.46 (lung),68,132,137,1593,1930,5.981,4.183,8.517,6.558742064216563e-22
+kidney + podocyte,APOL1-MYH9,110,44576,18.0,,100,100,177,1553,1930,8.757,6.296,12.197,2.40534748372973e-38
+"kidney + podocyte, kidney-restricted",APOL1-MYH9,39,14686,5.9,,26,174,58,1672,1930,4.302,2.531,7.152,8.642364230292237e-08
+"kidney + podocyte, shared",APOL1-MYH9,71,29890,12.1,,74,126,119,1611,1930,7.936,5.548,11.33,7.497568741034978e-29
+whole kidney only,beta-globin,10,2598,1.0,,2,198,12,1717,1929,1.445,0.156,6.562,0.4346287565616845
+kidney + podocyte,beta-globin,18,5851,2.4,,17,183,21,1708,1929,7.54,3.664,15.313,3.86659013277805e-08
