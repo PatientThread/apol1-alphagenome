@@ -1,0 +1,7 @@
+locus,reference_set,peaks,bp_unclipped,bp_within_locus,overhang_bp,peaks_crossing_boundary,pct_of_locus
+APOL1-MYH9,podocyte-inclusive union,110,44576,44129,447,1,17.8
+APOL1-MYH9,whole kidney,67,30358,29989,369,1,12.1
+beta-globin,podocyte-inclusive union,18,5851,5851,0,0,2.4
+beta-globin,whole kidney,10,2598,2598,0,0,1.0
+APOL1-MYH9,"union, kidney-restricted",39,14686,14686,0,0,5.9
+APOL1-MYH9,"union, shared",71,29890,29443,447,1,11.9

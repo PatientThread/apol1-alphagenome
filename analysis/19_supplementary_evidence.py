@@ -7,11 +7,9 @@ already in the repository. No API calls, so it reruns offline.
 
   peak_manifest.csv     every ENCODE file used, its locus, term, and the
                         merged peak count and bp it contributes
-  bootstrap_stability.csv
-                        the six change-in-contrast intervals recomputed at
-                        500, 2000 and 5000 draws across three seeds, so a
-                        reader can see whether the endpoints are stable to
-                        Monte Carlo variation rather than taking 500 on trust
+  (the stability table moved to step 20 --stability, which resamples on ONE
+   list of draws shared by every comparator; the version this script used to
+   write drew fresh peaks per comparator and is superseded)
   ranking_provenance.json
                         the exact ranking transform, resampling unit and
                         partition rule, written down rather than described
@@ -246,4 +244,4 @@ def provenance() -> None:
 if __name__ == "__main__":
     manifest()
     provenance()
-    stability()
+    # stability() is superseded by 20_shared_draw_interaction.py --stability

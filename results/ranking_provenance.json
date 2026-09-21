@@ -1,6 +1,6 @@
 {
-  "ranking_transform": "absolute value of the raw differential reference-versus-alternate score, sorted descending; no quantile transform",
-  "tie_handling": "pandas sort_values default (quicksort); ties are broken arbitrarily and are not adjudicated",
+  "ranking_transform": "absolute value of the DIFF_LOG2_SUM score, sorted descending; no quantile calibration ('raw' means uncalibrated, not untransformed)",
+  "tie_handling": "pandas sort_values default (quicksort), ties arbitrary; VERIFIED: no tie spans a reported cutoff at depth 25, 50, 100 or 200 for any of the seven rankings, so tie order changes no reported result",
   "ranked_outputs": [
     "dnase_glomerular_visceral_epithelial_cell",
     "dnase_kidney",
@@ -33,5 +33,26 @@
   "repeated_peaks": "a peak drawn k times contributes its variants k times to both the top set and the denominator",
   "zero_cells": "Haldane 0.5 correction on the bootstrap log odds ratios, so no replicate is infinite; the reported point estimates and exact intervals are uncorrected conditional maximum likelihood",
   "primary_depth": 200,
-  "multiplicity": "unadjusted across six comparators; exploratory"
+  "multiplicity": "unadjusted across six comparators; exploratory",
+  "scorer": "CenterMaskScorer(requested_output=DNASE, width=501, aggregation_type=DIFF_LOG2_SUM)",
+  "scorer_mask_width_bp": 501,
+  "scorer_aggregation": "DIFF_LOG2_SUM: difference of log2 summed signal between ALT and REF over the centred mask",
+  "client_version": "alphagenome 0.9.0",
+  "prediction_dates": {
+    "test_locus": "2026-09-13",
+    "comparator_rankings_and_control": "2026-09-15"
+  },
+  "position_base": "gnomAD pos is 1-based; context start = max(0, pos - 524288)",
+  "coverage_convention": "peaks CLASSIFIED unclipped; coverage percentages computed from the intersection with the evaluated interval. One merged peak at APOL1-MYH9 overhangs by 447 bp; none overhangs at the comparison locus",
+  "resampling_units": "27 kidney-restricted peaks containing at least one eligible allele, of 39 such peaks",
+  "draws_shared_across_comparators": true,
+  "bootstrap_seed": 20260921,
+  "bootstrap_replicates": 500,
+  "interval_percentiles": [
+    2.5,
+    97.5
+  ],
+  "bootstrap_estimator": "Haldane-corrected log cross-product ratio, used for BOTH the observed point and every replicate; NOT the conditional maximum-likelihood OR of Table 1",
+  "stability_design": "9 configurations (3 replicate counts x 3 seeds) yielding 54 comparator-specific intervals",
+  "pseudocode": "analysis/BOOTSTRAP_PSEUDOCODE.md"
 }

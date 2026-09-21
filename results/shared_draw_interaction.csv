@@ -1,0 +1,7 @@
+comparator,delta_observed,delta_ci_low,delta_ci_high,excludes_zero,replicates,seed,pct_low,pct_high,estimator,draws_shared_across_comparators
+stomach,0.422,-0.226,1.084,False,500,20260921,2.5,97.5,Haldane-corrected log cross-product ratio,True
+hepatocyte,0.227,-0.099,0.575,False,500,20260921,2.5,97.5,Haldane-corrected log cross-product ratio,True
+liver,0.189,-0.578,1.142,False,500,20260921,2.5,97.5,Haldane-corrected log cross-product ratio,True
+lung,0.093,-0.481,0.527,False,500,20260921,2.5,97.5,Haldane-corrected log cross-product ratio,True
+kidney (whole),0.045,-0.588,0.845,False,500,20260921,2.5,97.5,Haldane-corrected log cross-product ratio,True
+brain,-0.07,-0.705,0.478,False,500,20260921,2.5,97.5,Haldane-corrected log cross-product ratio,True

@@ -168,9 +168,9 @@ def figure1() -> None:
 # ---------------------------------------------------------------- figure 2
 def figure2() -> None:
     """Change in tissue contrast on partitioning, with numerical limits."""
-    d = pd.read_csv(RESULTS / "reconciled_interaction.csv")
+    d = pd.read_csv(RESULTS / "shared_draw_interaction.csv")
     d = d.sort_values("delta_observed").reset_index(drop=True)
-    fig, ax = plt.subplots(figsize=(TWO_COL * 0.62, 2.25))
+    fig, ax = plt.subplots(figsize=(TWO_COL * 0.62, 2.55))
     for i, r in d.iterrows():
         ax.plot([r.delta_ci_low, r.delta_ci_high], [i, i], color=NEUTRAL,
                 lw=1.1, solid_capstyle="round", zorder=2)
@@ -186,10 +186,12 @@ def figure2() -> None:
     ax.set_ylim(-0.6, len(d) - 0.4)
     ax.set_xlabel("podocyte-minus-comparator contrast:\n"
                   "kidney-restricted minus union (log odds ratio)\n"
-                  "positive = podocyte gains where kidney peaks are restricted")
+                  "positive = podocyte gains where kidney peaks are restricted\n"
+                  "points and 95% percentile intervals, Haldane-corrected\n"
+                  "log cross-product ratio, 500 shared draws")
     ax.grid(axis="x", color=GRID, lw=0.4, zorder=0)
     ax.set_axisbelow(True)
-    fig.subplots_adjust(left=0.235, right=0.695, top=0.97, bottom=0.34)
+    fig.subplots_adjust(left=0.235, right=0.695, top=0.97, bottom=0.44)
     save(fig, "figure2")
 
 
