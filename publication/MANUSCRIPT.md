@@ -273,14 +273,15 @@ ENCODE and gnomAD data together with model predictions.
 
 **Consent for publication.** Not applicable.
 
-**Availability of data and materials.** All analysis code, the frozen allele
-ledger, per-variant predictions, contingency counts for every endpoint, the
-ENCODE peak manifest, partition labels, the ranking provenance record, the six
-change-in-contrast estimates with intervals, and the bootstrap stability table
-are available in the apol1-alphagenome repository [11]. Variant frequencies are
-from gnomAD v4 [8, 9]; peak calls from the ENCODE portal [10]. Model predictions were
-obtained under AlphaGenome's non-commercial research terms and are redistributed
-subject to them; model weights were not accessed.
+**Availability of data and materials.** Variant frequencies are from gnomAD v4
+[8, 9] and peak calls from the ENCODE portal [10]. All analysis code, the frozen
+allele ledger, per-variant predictions, contingency counts for every endpoint,
+the ENCODE peak manifest, the track manifest, partition labels, the ranking
+provenance record, the six change-in-contrast estimates with intervals, and the
+bootstrap stability table are available in the apol1-alphagenome repository
+[11]. Model predictions were obtained under AlphaGenome's non-commercial
+research terms and are redistributed subject to them; model weights were not
+accessed.
 
 **Competing interests.** The author declares no competing interests.
 

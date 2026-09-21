@@ -13,13 +13,46 @@ terms are defined by Google DeepMind. They are NOT covered by the MIT licence in
 LICENSE, which applies to the analysis code only. The files governed by the
 AlphaGenome Output Terms of Use are:
 
-  results/scored/**                       per-variant model predictions
-  results/analysis.json                   derived from those predictions
-  results/distance_controlled.json        derived from those predictions
-  results/encode_validation.json          derived from those predictions
-  results/top_variants.csv                derived from those predictions
-  results/top_variants_corrected.csv      derived from those predictions
-  results/apol1_scoring_log.csv           accounting for the scoring run
+  ALL THREE PREDICTION DIRECTORIES
+  results/scored/**                       per-variant predictions, test locus
+  results/scored_wrong_tissue/**          per-variant predictions, 7 tissues
+  results/scored_control_locus/**         per-variant predictions, control locus
+
+  EVERY FILE DERIVED FROM THOSE PREDICTIONS
+  results/analysis.json
+  results/apol1_scoring_log.csv
+  results/candidate_annotation.csv        results/candidate_annotation.json
+  results/candidate_cell_types.csv
+  results/cell_type_enrichment.csv        results/cell_type_validation.json
+  results/control_locus_matched.csv
+  results/coverage_clipped.csv
+  results/dedup_ledger.csv
+  results/distance_controlled.json
+  results/encode_validation.json
+  results/final_reconciliation.json
+  results/kidney_only_counts.csv
+  results/locus_summary.json
+  results/negative_control_locus.json
+  results/ranking_provenance.json
+  results/reconciled.json                 results/reconciled_counts.csv
+  results/reconciled_interaction.csv
+  results/shared_draw_interaction.csv     results/shared_draw_stability.csv
+  results/specific_vs_shared.csv          results/specific_vs_shared.json
+  results/table_one.csv                   results/table_one.json
+  results/top_variants.csv                results/top_variants_corrected.csv
+  results/track_manifest.csv              results/track_manifest.json
+  results/wrong_tissue_control.json       results/wrong_tissue_enrichment.csv
+  results/wrong_tissue_scoring_log.json
+  publication/figures/**                  figures plotted from the above
+
+  NOT AlphaGenome Output. These derive from ENCODE, gnomAD or 1000 Genomes
+  only, and carry those projects' own terms rather than DeepMind's:
+  results/peak_manifest.csv               results/control_locus_intervals.json
+  results/ld_*.csv  results/ld_*.json     results/annot_cache/**
+  results/ld_cache/**                     data/**
+
+  IF A FILE IS NOT LISTED, TREAT IT AS AlphaGenome Output. This list is
+  regenerated whenever results/ changes; last updated 21 September 2026.
 
 The following file is redistributed from google-deepmind/alphagenome_research
 under the Creative Commons Attribution-NonCommercial 4.0 International Licence

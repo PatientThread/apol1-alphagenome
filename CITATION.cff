@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: "apol1-alphagenome: analysis code and frozen results"
+message: >-
+  If you use this archive, cite both this record and the paper it supports.
+  Note that the licence differs between the code and the model-derived data;
+  see LICENSE and LEGALLY_BINDING_TERMS_OF_USE.txt.
+type: software
+authors:
+  - family-names: Lawrence
+    given-names: Christopher
+    orcid: "https://orcid.org/0000-0002-8159-0879"
+repository-code: "https://github.com/PatientThread/apol1-alphagenome"
+abstract: >-
+  Analysis code, frozen allele ledger, per-variant AlphaGenome predictions,
+  contingency counts, ENCODE peak and track manifests, ranking provenance,
+  change-in-contrast estimates and bootstrap stability tables supporting
+  "Reference choice affects positional enrichment of AlphaGenome variant
+  rankings at APOL1-MYH9".
+keywords:
+  - APOL1
+  - AlphaGenome
+  - DNase-seq
+  - chromatin accessibility
+  - variant prioritisation
+  - reference selection
+license-url: "https://github.com/PatientThread/apol1-alphagenome/blob/main/LICENSE"
+version: v1.0-bmcrn
+date-released: "2026-09-21"
