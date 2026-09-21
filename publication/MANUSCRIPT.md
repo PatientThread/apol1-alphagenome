@@ -1,7 +1,8 @@
 # Reference choice affects positional enrichment of AlphaGenome variant rankings at APOL1-MYH9
 
 **Christopher Lawrence**
-Consultant Nephrologist, London, United Kingdom
+Consultant Nephrologist
+9 Harley Street, London W1G 6AL, United Kingdom
 ORCID 0000-0002-8159-0879
 Correspondence: Christopher.lawrence3@nhs.net
 
@@ -289,7 +290,12 @@ accessed.
 **Authors' contributions.** CL is the sole author and conceived the study, wrote
 the code, performed the analyses and wrote the manuscript.
 
-**Acknowledgements.** Not applicable.
+**Acknowledgements.** During the preparation of this work the author used
+Claude (Opus 5, Anthropic) to search and verify the published literature, to
+check quoted figures and citations against primary sources, and to draft and
+revise the text and analysis code. After using this tool the author reviewed and
+edited the content as needed and takes full responsibility for the content of
+the publication. The tool is not listed as an author.
 
 ## References
 
