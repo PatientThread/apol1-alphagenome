@@ -25,6 +25,10 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Pt
 
+BODY_FONT = "Times New Roman"   # universally available; Calibri is a Windows default
+CODE_FONT = "Courier New"       # Menlo is macOS-only and substitutes unpredictably
+BODY_SIZE = Pt(12)
+
 HERE = Path(__file__).resolve().parent
 SRC = HERE / "MANUSCRIPT.docx"
 OUT = HERE / "MANUSCRIPT_submission.docx"
@@ -99,12 +103,47 @@ def strip_thousands(table) -> None:
 def main() -> None:
     doc = Document(SRC)
 
+    # One body font throughout, and one monospace font for code identifiers.
+    # The converter emits Menlo for markdown backticks, which exists only on
+    # macOS; an editor opening this on Windows would get an arbitrary
+    # substitution mid-sentence.
+    normal = doc.styles["Normal"]
+    normal.font.name = BODY_FONT
+    normal.font.size = BODY_SIZE
+    rpr = normal.element.get_or_add_rPr()
+    rf = rpr.find(qn("w:rFonts"))
+    if rf is None:
+        rf = OxmlElement("w:rFonts")
+        rpr.append(rf)
+    for a in ("w:ascii", "w:hAnsi", "w:cs"):
+        rf.set(qn(a), BODY_FONT)
+
+    def restyle(runs):
+        for run in runs:
+            name = run.font.name
+            if name is None:
+                r = run._r.find(qn("w:rPr"))
+                if r is not None:
+                    f = r.find(qn("w:rFonts"))
+                    if f is not None:
+                        name = f.get(qn("w:ascii")) or f.get(qn("w:hAnsi"))
+            mono = name in ("Menlo", "Consolas", "Courier", "Monaco",
+                            "DejaVu Sans Mono")
+            run.font.name = CODE_FONT if mono else BODY_FONT
+            run.font.size = BODY_SIZE
+            r = run._r.get_or_add_rPr()
+            f = r.find(qn("w:rFonts"))
+            if f is None:
+                f = OxmlElement("w:rFonts")
+                r.append(f)
+            for a in ("w:ascii", "w:hAnsi", "w:cs"):
+                f.set(qn(a), CODE_FONT if mono else BODY_FONT)
+
     for para in doc.paragraphs:
         pf = para.paragraph_format
         pf.line_spacing_rule = WD_LINE_SPACING.DOUBLE
         pf.space_after = Pt(0)
-        for run in para.runs:
-            run.font.size = run.font.size or Pt(12)
+        restyle(para.runs)
 
     for section in doc.sections:
         add_line_numbers(section)
@@ -119,6 +158,7 @@ def main() -> None:
                 for para in cell.paragraphs:
                     para.paragraph_format.line_spacing_rule = \
                         WD_LINE_SPACING.SINGLE
+                    restyle(para.runs)
 
     # Move the Table 1 caption below the table: the converter emits it above.
     body = doc.element.body
@@ -135,6 +175,7 @@ def main() -> None:
     print(f"  paragraphs double spaced: {len(doc.paragraphs)}")
     print(f"  tables plainified: {len(doc.tables)}")
     print("  line numbers: continuous, page numbers: footer")
+    print(f"  fonts: {BODY_FONT} 12pt body, {CODE_FONT} for code identifiers")
 
 
 if __name__ == "__main__":
