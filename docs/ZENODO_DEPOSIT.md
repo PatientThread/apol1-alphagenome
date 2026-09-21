@@ -102,16 +102,11 @@ offline and I would keep them.
 
 3. Check the DOI resolves in a private browser window before submitting.
 
-## Suggested Zenodo description
+## Licence text to paste
 
-> Analysis code and frozen results supporting "Reference choice affects
-> positional enrichment of AlphaGenome variant rankings at APOL1-MYH9".
->
-> LICENSING IS SPLIT. The analysis code is released under the MIT licence. The
-> AlphaGenome predictions in results/scored*, and every file derived from them,
-> are AlphaGenome Output governed by Google DeepMind's AlphaGenome Output Terms
-> of Use (http://deepmind.google.com/science/alphagenome/output-terms), which
-> are non-commercial. LEGALLY_BINDING_TERMS_OF_USE.txt in the archive lists
-> exactly which files fall under which terms. Model weights are not included
-> and were never accessed. ENCODE peak files and gnomAD frequencies carry their
-> own source terms.
+Zenodo's "Other" licence option takes a free-text description. The exact text
+is in `docs/ZENODO_LICENCE_TEXT.txt` as a single unwrapped paragraph.
+
+**Copy it from that file, not from this one.** An earlier version of this guide
+presented the text as a markdown blockquote, and the leading "> " characters
+were pasted into the live record along with it, where they display literally.
