@@ -1,0 +1,8 @@
+ranking,biosample_name,track_index,name,ontology_curie,biosample_type,strand,data_source
+kidney (podocyte),glomerular visceral epithelial cell,21,CL:0000653 DNase-seq,CL:0000653,primary_cell,.,encode
+kidney (whole),kidney,262,UBERON:0002113 DNase-seq,UBERON:0002113,tissue,.,encode
+hepatocyte,hepatocyte,7,CL:0000182 DNase-seq,CL:0000182,in_vitro_differentiated_cells,.,encode
+liver,liver,260,UBERON:0002107 DNase-seq,UBERON:0002107,tissue,.,encode
+lung,lung,253,UBERON:0002048 DNase-seq,UBERON:0002048,tissue,.,encode
+brain,brain,221,UBERON:0000955 DNase-seq,UBERON:0000955,tissue,.,encode
+stomach,stomach,218,UBERON:0000945 DNase-seq,UBERON:0000945,tissue,.,encode

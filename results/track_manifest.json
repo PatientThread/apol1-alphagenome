@@ -1,0 +1,16 @@
+{
+  "selection_rule": "exact match on biosample_name in the DNase output metadata",
+  "combination_rule": "numpy.nanmean across all matching tracks; a ranking with n>1 is a mean, not a single track",
+  "total_dnase_tracks_returned": 305,
+  "tracks_per_ranking": {
+    "brain": 1,
+    "hepatocyte": 1,
+    "kidney (podocyte)": 1,
+    "kidney (whole)": 1,
+    "liver": 1,
+    "lung": 1,
+    "stomach": 1
+  },
+  "probe_variant": "chr22:36265860A>G",
+  "note": "scores from the probe variant are discarded; only track metadata is retained"
+}

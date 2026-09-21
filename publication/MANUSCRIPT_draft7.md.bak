@@ -58,54 +58,54 @@ overlook.
 ### Methods
 
 **Variants.** The interval spanning APOL3 to MYH9, chr22:36,140,330-36,388,018
-(GRCh38, 247,688 bp) was evaluated. Variants were
+(GRCh38, 247,688 bp), fits within one model sequence context. Variants were
 retrieved on 13 September 2026 from the gnomAD v4 [8] GraphQL application
 programming interface (API) [9] (dataset `gnomad_r4`, GRCh38 region query),
 taking allele counts from the `afr` block of the genome callset with exome
 fallback; the raw response is deposited. Retaining single-nucleotide
 substitutions at African-ancestry allele frequency of at least 1% gave **1,930
-distinct alternate alleles at 1,921 positions**. The unit of analysis is a unique build, chromosome, position, REF and ALT
-combination; nine positions are multi-allelic, contributing two alleles each. A
-deduplication ledger is deposited.
+distinct alternate alleles at 1,921 positions**. The unit of analysis is a
+unique build, chromosome, position, REF and ALT combination; nine positions are
+multi-allelic and contribute two alleles each. A deduplication ledger is
+deposited.
 
 **Predictions.** Predictions came from the AlphaGenome public API [6] using the
 `ALL_FOLDS` model version, the default when none is specified, with the
 recommended DNase scorer. In client 0.9.0 that is
 `CenterMaskScorer(requested_output=DNASE, width=501,
-aggregation_type=DIFF_LOG2_SUM)`, defined in that client as
-log2(sum(ALT)) - log2(sum(REF)) over a 501 bp window centred on the variant.
-Scoring is performed server-side and the public documentation describes the
-same score with a pseudocount, so we report the pinned client's definition and
-do not assert the server's internal constant. Of the 305 DNase tracks returned, each ranking
-selects those whose `biosample_name` matches exactly and averages them; exactly
-one matched for every ranking, so no averaging occurred. The track manifest is
-deposited. Each variant was scored in a 1,048,576 bp context centred on it
+aggregation_type=DIFF_LOG2_SUM)`: signal is summed over a 501 bp window centred
+on the variant, and the score is the difference of log2 summed signals between
+alternate and reference. Each variant was scored in its own 1,048,576 bp context centred on the variant
 (`start = max(0, pos - 524288)`, `pos` the 1-based gnomAD coordinate).
-Predictions were obtained on 13 and 15 September 2026. Rankings use the **absolute value of that score**, sorted descending, with no
-quantile calibration; "raw" here means uncalibrated, not untransformed. Ties
-are broken arbitrarily, but no tie spans a reported cutoff at any depth for any
-ranking, so tie order changes no result. Seven tissue outputs were ranked: podocyte (glomerular visceral epithelial
-cell), whole kidney, hepatocyte, liver, lung, brain and stomach, a different
-list from the six tissues used below to define shared peaks. Because the scorer is differential, the endpoint tests whether predictions
-concentrate at accessible positions, not which allele changes it.
+Predictions were obtained on 13 September 2026 at the test locus and 15
+September 2026 for the comparator rankings and the comparison locus. Rankings use the **absolute value of that score**, sorted descending, with no
+quantile calibration applied; "raw" here means uncalibrated, not untransformed.
+Ties are broken arbitrarily by the sort, but no tie spans a reported cutoff at
+any depth for any of the seven rankings, so tie order changes no reported
+result. Seven tissue
+outputs were ranked: podocyte (glomerular visceral epithelial cell), whole
+kidney, hepatocyte, liver, lung, brain and stomach. These seven are a different
+list from the six tissues used below to define shared peaks. Because the scorer
+is differential, the endpoint tests whether predictions concentrate at
+accessible positions, not which allele changes accessibility.
 
 **This evaluation is not independent of model training.** AlphaGenome is trained
 on ENCODE DNase-seq coverage, and every kidney biosample used here corresponds
 to a named training experiment (ENCSR206OJJ, ENCSR785BDQ, ENCSR000EPW,
 ENCSR000EOL, ENCSR000EOK, ENCSR175IWT). The served `ALL_FOLDS` version is
-described as distilled from teachers trained across all folds, so no genomic
-region is held out from it; the API also exposes `FOLD_0` to `FOLD_3`. We did
-not establish which released checkpoint, if any, holds this locus out, and make
-no claim about a held-out evaluation. What follows are consistency checks
-between predictions and the data underlying them.
+described as a distilled model whose teachers were trained across all folds, so
+no genomic region is held out from it; the API also exposes `FOLD_0` to
+`FOLD_3`. We did not establish which released checkpoint, if any, holds this
+locus out, and make no claim about a held-out evaluation in either direction.
+What follows are consistency checks between predictions and the data underlying
+them.
 
 **Measured reference sets.** ENCODE DNase-seq peak files (GRCh38,
 released, peak output) [10] were merged over each locus. Coordinates are GRCh38 BED half-open
 intervals and touching intervals merge (next start not greater than current
-end). Peaks are classified unclipped, so one merged peak of the podocyte-inclusive
-union at APOL1-MYH9 extends 447 bp beyond the interval (369 bp of it also
-present in the whole-kidney reference); coverage percentages are computed from
-the intersection with the evaluated interval, and no peak overhangs at the
+end). Peaks are classified unclipped, so one merged peak at APOL1-MYH9 extends
+447 bp beyond the interval; coverage percentages are computed from the
+intersection with the evaluated interval, and no peak overhangs at the
 comparison locus. Six locus and reference combinations were
 evaluated (Table 1): whole kidney alone (`term_name=kidney`); a
 **podocyte-inclusive kidney union** adding
@@ -115,9 +115,10 @@ podocyte-inclusive definitions at the comparison locus. A merged kidney peak is
 classified **shared** if a peak from any of six comparison tissues (liver, lung,
 heart left ventricle, stomach, spleen, thyroid gland; four files per tissue)
 **covers its midpoint**, and **kidney-restricted** otherwise, so part of a
-kidney-restricted peak may still overlap a comparison peak. Partitions are mutually exclusive and sum to the union in peaks, base pairs
-and alleles, asserted in code. Within each locus the eligible allele set and each tissue ranking were held
-fixed across reference definitions; the loci have different allele sets. A
+kidney-restricted peak may still overlap a comparison peak. Partitions are
+mutually exclusive and sum to the union in peaks, base pairs and alleles,
+asserted in code. Within each locus, the eligible allele set and each tissue ranking were held
+fixed across reference definitions; the two loci have different allele sets. A
 peak manifest listing every file, term and contribution is deposited.
 
 **Statistics.** Enrichment of the top-ranked alleles was tested against the
@@ -130,27 +131,28 @@ violates, so they are descriptive, not tests of ranking differences.
 **Resampling.** Each of 500 bootstrap replicates draws, with replacement, 27
 kidney-restricted merged peaks, these being the peaks of the 39 that contain at
 least one eligible allele. A peak drawn k times contributes its allele records k
-times, and a peak not drawn contributes none. All eligible records outside
-kidney-restricted peaks are appended once. Each tissue ranking is then
+times. Every remaining record is appended once. Each tissue ranking is then
 recomputed over that whole replicate pool and its top 200 records taken, so
 membership of the top set is a consequence of reranking and an allele in the
 observed top 200 need not survive it. The fixed part of the pool is fixed in its
 records and scores, not in its contingency membership. One list of draws is
 generated (seed 20260921, `numpy` PCG64) and every comparator and both reference
-definitions are evaluated on each draw, so the six estimates are paired;
-alternate alleles at one position always travel together. The observed point estimate and every replicate use the same
+definitions are evaluated on each draw, so the six estimates are paired.
+Alternate alleles at one position always travel together. The observed point estimate and every replicate use the same
 estimator, a Haldane-corrected log cross-product ratio, which is deliberately
 not the conditional maximum-likelihood odds ratio of Table 1 and is not
 interchangeable with it. Intervals are the 2.5th and 97.5th percentiles,
 unadjusted across six comparators, and conditional on the fixed background.
-Nine further configurations (three replicate counts by three seeds), yielding
-54 comparator-specific intervals, are deposited, with pseudocode.
+Nine further configurations (three replicate counts by three seeds), yielding 54
+comparator-specific intervals, are deposited as a stability check, with
+pseudocode for the procedure.
 
 **Comparison locus.** The beta-globin cluster, chr11:5,150,000-5,397,688,
 matched on length and paralogue-cluster structure and **approximately
 count-matched** by subsampling stratified on African-ancestry allele frequency
 in eight bins: 1,929 alleles against 1,930, because in the 0.10 to 0.20 stratum
-the test locus required 463 and the control held 462.
+the test locus required 463 and the control contained 462. No exact matching
+was attempted.
 
 ### Results
 
@@ -188,21 +190,23 @@ APOL1-MYH9 against 2.4% here, and overlapping intervals are not an equivalence
 test. Equally, the wide whole-kidney interval is too imprecise to establish an
 absence of enrichment.
 
+Table 1 sets out each reference set with its denominator and named comparator.
 
 ### Discussion
 
 Reference definition changed the magnitude and the interpretation of positional
 enrichment at both loci. At APOL1-MYH9 the podocyte estimate was numerically
-above the strongest non-renal estimate under both references, with greater
-separation under the podocyte-inclusive one. Adding podocyte files changes
-coverage and peak composition as well as cell-type representation, and these
-analyses do not isolate those contributions.
+above the strongest non-renal estimate under both the whole-kidney and the
+podocyte-inclusive reference, with greater separation under the latter. Adding
+podocyte files changes coverage and peak composition as well as cell-type
+representation, and these analyses do not isolate those contributions from one
+another.
 
-The beta-globin comparison also showed enrichment under that definition. That
-does not establish equivalent performance between the loci, and the imprecise
-whole-kidney estimate does not establish its absence. Likewise the conditional
-partition analysis detected no change in the relative enrichment contrast
-without establishing equivalence.
+The beta-globin comparison also showed enrichment under the podocyte-inclusive
+definition. That does not establish equivalent performance between the loci,
+and the imprecise whole-kidney estimate does not establish its absence.
+Likewise the conditional partition analysis detected no change in the relative
+enrichment contrast without establishing equivalence.
 
 Three practical safeguards follow. Specify the measured reference and the
 predicted output together, since neither alone fixes the endpoint. Verify in
@@ -221,10 +225,10 @@ with no pre-registered plan, and the comparisons reported were arrived at
 iteratively.
 
 The evaluation is not independent of model training, which is the binding
-limitation: the tracks are named training experiments and the served model is
-distilled from teachers trained across all folds. We identified no released
+limitation: the tracks are named training experiments, and the served model is
+distilled from teachers trained across all folds. We did not identify a released
 checkpoint holding this locus out, so these results speak to internal
-consistency, not generalisation.
+consistency and not to generalisation.
 
 The endpoint is positional. A differential score ranked against peak membership
 does not test which allele changes accessibility, nor the direction or size of
@@ -320,19 +324,17 @@ non-renal rankings in grey. Only the podocyte ranking was evaluated at the
 comparison locus, so panels E and F show that estimate alone. Intervals assume
 independence between alleles.
 
-**Figure 2.** Change in tissue contrast on partitioning. For each of six
-comparator rankings, points show the podocyte-minus-comparator contrast in
-kidney-restricted regions minus the corresponding contrast in the
-podocyte-inclusive union, on the natural-log odds-ratio scale. Positive values
-indicate a larger relative podocyte advantage in restricted regions. Each of
-500 paired bootstrap replicates sampled 27 allele-containing restricted peaks
-with replacement, appended the fixed non-restricted records once, and
-reselected the top 200 records for each ranking. Observed points and replicate
-contrasts use Haldane-corrected log cross-product ratios, whereas the estimates
-in Table&nbsp;1 are conditional maximum-likelihood odds ratios. Bars show
-conditional 95% percentile intervals (2.5th to 97.5th percentiles), unadjusted
-for six comparisons, with numerical limits beside each point. No interval
-excludes zero; this does not establish equivalence.
+**Figure 2.** Change in tissue contrast on partitioning, for each of six
+comparators. The quantity plotted is the podocyte-minus-comparator contrast in
+kidney-restricted regions minus the same contrast in the podocyte-inclusive
+union, in natural-log odds ratio, so a positive value means the podocyte ranking
+gains relative advantage in kidney-restricted regions. Estimated on one list of 500 bootstrap
+draws of kidney-restricted peaks shared by all six comparators, with all other
+records held fixed. Points and intervals both use the Haldane-corrected log
+cross-product ratio, not the conditional maximum-likelihood estimator of Table
+1. Intervals are the 2.5th and 97.5th percentiles, unadjusted for six
+comparisons; numerical limits are printed beside each point. No interval
+excludes zero, which is not a test of equivalence.
 
 ## Tables
 
