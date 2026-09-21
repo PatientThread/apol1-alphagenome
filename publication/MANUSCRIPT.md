@@ -278,8 +278,7 @@ ENCODE and gnomAD data together with model predictions.
 allele ledger, per-variant predictions, contingency counts for every endpoint,
 the ENCODE peak manifest, the track manifest, partition labels, the ranking
 provenance record, the six change-in-contrast estimates with intervals, and the
-bootstrap stability table are available in the apol1-alphagenome repository
-[11]. Model predictions were obtained under AlphaGenome's non-commercial
+bootstrap stability table are archived at Zenodo [11]. Model predictions were obtained under AlphaGenome's non-commercial
 research terms and are redistributed subject to them; model weights were not
 accessed.
 
@@ -304,7 +303,7 @@ the code, performed the analyses and wrote the manuscript.
 8. Chen S, Francioli LC, Goodrich JK, Collins RL, Kanai M, Wang Q, et al. A genomic mutational constraint map using variation in 76,156 human genomes. Nature. 2024;625:92-100.
 9. Genome Aggregation Database. gnomAD v4, GraphQL API dataset identifier `gnomad_r4`, GRCh38 region query, `afr` genetic-ancestry group, genome callset with exome fallback. https://gnomad.broadinstitute.org/api (accessed 13 September 2026). The raw API response is deposited with the analysis archive.
 10. ENCODE Project Consortium. Expanded encyclopaedias of DNA elements in the human and mouse genomes. Nature. 2020;583:699-710. Individual experiment and file accessions are listed in the deposited peak manifest.
-11. Lawrence C. apol1-alphagenome: analysis code and frozen results, release v1.0-bmcrn. https://github.com/PatientThread/apol1-alphagenome/releases/tag/v1.0-bmcrn (accessed 21 September 2026).
+11. Lawrence C. apol1-alphagenome: analysis code and frozen results, version v1.0-bmcrn. Zenodo; 2026. doi:10.5281/zenodo.22875737. Also at https://github.com/PatientThread/apol1-alphagenome
 
 ## Figure legends
 
