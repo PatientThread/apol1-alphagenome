@@ -41,6 +41,25 @@ predictions, every contingency table, the ENCODE peak and track manifests, the
 bootstrap pseudocode and its stability tables, are archived at Zenodo,
 doi:10.5281/zenodo.22875737, and openly available.
 
+I am writing to request a full waiver of the article processing charge, and I
+should be clear that the submission depends on it. I have no institutional
+affiliation and no access to institutional or grant funding for publication. I
+work part-time as a doctor under practice restrictions, I was recently made
+redundant from an industry role, and I am a single parent. I do not have the
+means to pay the charge in full from personal funds. This work was carried out
+without funding of any kind, using publicly available data and an academic
+research API, and the full archive is already openly deposited at no cost to
+any reader.
+
+I understand waivers are granted at editorial discretion and are not
+guaranteed. If a full waiver is not possible I would be grateful to know what
+reduction might be, but I should say plainly that if the charge cannot be
+substantially covered I would have to withdraw the manuscript rather than leave
+an unpayable invoice outstanding. I raise this now, before review, because your
+guidance states that waiver requests cannot be considered later, and because it
+seems fairer to you and to your reviewers to say so at the outset than after
+their time has been spent.
+
 The manuscript is original, is not under consideration elsewhere, and reports no
 new participant data, so ethical approval was not required. I am the sole
 author, declare no competing interests, and received no funding. In line with
